@@ -1,0 +1,16 @@
+{
+    "name": "centersis/gerador",
+    "description": "Gerador de Arquivos",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Centersis",
+            "email": "centersis@centersis.com.br"
+        }
+    ],
+    "minimum-stability": "dev",
+	"prefer-stable": true,
+    "require": {}
+}
+
