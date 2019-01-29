@@ -33,17 +33,15 @@ class ArquivoPadrao
         $arquivoValidacao = new ArquivoValidacao();
 
         if ($especificacoes[1] == 'num') {
-            
+
             $valorFormatado = $util->formataNumDecimais($valor);
             $arquivoValidacao->validaTamanhoNum($valorFormatado, $especificacoes[0], $posicao, $identifica);
             $valor = $util->adicionarZerosEsq($valorFormatado, $especificacoes[0]);
-            
         } else if ($especificacoes[1] == 'valor') {
 
             $valor = $util->adicionarZerosEsq($this->removePontuacao($this->floatCliente($valor)), $especificacoes[0]);
 
             $arquivoValidacao->validaTamanhoNum($valor, $especificacoes[0], $posicao, $identifica);
-            
         } else {
 
             $case = null;
@@ -58,6 +56,14 @@ class ArquivoPadrao
         }
 
         return $valor;
+    }
+
+    public function toFloat($valor)
+    {
+        $inicio = substr($valor, 0, -2);
+        $fim = substr($valor, -2);
+
+        return $this->floatBanco($inicio . '.' . $fim);
     }
 
     public function removePontuacao($texto)

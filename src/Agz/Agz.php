@@ -82,8 +82,7 @@ class Agz
 
         foreach ($this->segmentoG as $segmento) {
 
-            $segmentoG = [];
-            $somaValor += $segmento[6];
+            $segmentoG = [];            
 
             foreach ($modeloG as $key => $especificacoes) {
 
@@ -93,6 +92,10 @@ class Agz
                     $validacaoAgz->{$modeloGValidacao[$key]}($valor, $key, $segmento[$key], 'segmentoG');
                 }
 
+                if($key == 6){
+                    $somaValor +=  $instanciaPadrao->toFloat($valor);
+                }
+                
                 $segmentoG[] = $valor;
             }
 
@@ -107,7 +110,7 @@ class Agz
         $segmentoZ = [];
         
         $this->segmentoZ = $validacaoAgz->setDefault($modeloZ, $this->segmentoZ, $modeloZDefault, $modeloZDinamico, 'segmentoZ');        
-
+        
         foreach ($modeloZ as $key => $especificacoes) {
 
             $valor = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoZ[$key], $key, $config, 'segmentoZ');
