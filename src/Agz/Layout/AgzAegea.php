@@ -33,7 +33,6 @@ class AgzAegea
     public function segmentoAValidacao()
     {
         return [
-            7 => "validaData",
         ];
     }
 
@@ -62,16 +61,13 @@ class AgzAegea
     public function segmentoGDefault()
     {
         return [
-            1 => "G",            
+            1 => "G",
         ];
     }
-    
+
     public function segmentoGValidacao()
     {
         return [
-            5 => "validaCodigoBarra",
-            10 => "validaFormaArrecadacao",
-            12 => "validaFormaPagamento"
         ];
     }
 
