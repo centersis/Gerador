@@ -49,8 +49,8 @@ class AgzAegea
             3 => [8, 'texto'],
             4 => [8, 'texto'],
             5 => [44, 'texto'],
-            6 => [12, 'num'],
-            7 => [7, 'num'],
+            6 => [12, 'valor'],
+            7 => [7, 'valor'],
             8 => [8, 'num'],
             9 => [8, 'texto'],
             10 => [1, 'num'],
@@ -81,7 +81,7 @@ class AgzAegea
         return [
             1 => [1, 'texto'],
             2 => [6, 'num'],
-            3 => [17, 'num'],
+            3 => [17, 'valor'],
             4 => [126, 'texto'],
         ];
     }

@@ -33,9 +33,17 @@ class ArquivoPadrao
         $arquivoValidacao = new ArquivoValidacao();
 
         if ($especificacoes[1] == 'num') {
+            
             $valorFormatado = $util->formataNumDecimais($valor);
             $arquivoValidacao->validaTamanhoNum($valorFormatado, $especificacoes[0], $posicao, $identifica);
             $valor = $util->adicionarZerosEsq($valorFormatado, $especificacoes[0]);
+            
+        } else if ($especificacoes[1] == 'valor') {
+
+            $valor = $util->adicionarZerosEsq($this->removePontuacao($this->floatCliente($valor)), $especificacoes[0]);
+
+            $arquivoValidacao->validaTamanhoNum($valor, $especificacoes[0], $posicao, $identifica);
+            
         } else {
 
             $case = null;
@@ -50,6 +58,33 @@ class ArquivoPadrao
         }
 
         return $valor;
+    }
+
+    public function removePontuacao($texto)
+    {
+        return str_replace(['.', '/', '-', ','], '', $texto);
+    }
+
+    public function floatCliente($numero, $decimal = 2)
+    {
+        $float = $this->floatBanco($numero);
+        return number_format($float, $decimal, ',', '.');
+    }
+
+    public function floatBanco($numero)
+    {
+        if (!empty($numero)) {
+            //Verifica de o número ja esta formatado
+            if (is_numeric($numero)) {
+                return (float) $numero;
+            }
+
+            $valorA = str_replace('.', '', $numero);
+            $valorB = str_replace(',', '.', $valorA);
+            return (float) $valorB;
+        }
+
+        return 0;
     }
 
     private function tratarCaminho($caminho, $nomeArquivo)
