@@ -46,7 +46,7 @@ class Agz
         $agrupado = [];
 
         foreach ($this->linhas as $dados) {
-            $agrupado = implode('', $dados);
+            $agrupado[] = implode('', $dados);
         }
 
         return $agrupado;
