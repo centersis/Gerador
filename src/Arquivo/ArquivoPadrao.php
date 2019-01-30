@@ -12,6 +12,16 @@ class ArquivoPadrao
         $caminhoAbsoluto = $this->tratarCaminho($caminho, $nomeArquivo);
         $this->verificaPermissao($caminhoAbsoluto);
 
+        if(file_exists($caminhoAbsoluto)){
+            if(!is_readable($caminhoAbsoluto)){
+                throw new \Exception("O arquivo já existe e você não tem permissão para leitura!");
+            }
+            
+            if(!is_writable($caminhoAbsoluto)){
+                throw new \Exception("O arquivo já existe e você não tem permissão para escrita!");
+            }
+        }
+        
         $arquivoAberto = fopen($caminhoAbsoluto, "w+");
 
         foreach ($resultado as $value) {

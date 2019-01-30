@@ -11,12 +11,14 @@ class Agz
     private $segmentoA;
     private $segmentoG;
     private $segmentoZ;
+    private $linhas;
 
     public function __construct()
     {
         $this->segmentoA = [];
         $this->segmentoG = [];
         $this->segmentoZ = [];
+        $this->linhas = [];
     }
 
     public function setSegmentoA(array $segmentoA)
@@ -34,26 +36,31 @@ class Agz
         $this->segmentoZ = $segmentoZ;
     }
 
-    public function gerar($layout, $caminhoArquivo, $nomeArquivo, $config = [])
+    public function getLinhas()
+    {
+        return $this->linhas;
+    }
+
+    public function processar($layout, $config = [])
     {
         $caminho = 'Agz\\Layout\\' . $layout;
 
-        $instancia = new $caminho;
+        $iLayout = new $caminho;
         $validacaoAgz = new ValidacaoAgz();
-        $instanciaPadrao = new ArquivoPadrao();
+        $arquivoPadrao = new ArquivoPadrao();
 
-        $resultado = [];
+        $this->linhas = [];
         $segmentoA = [];
 
         $contaLinhas = 2;
         $somaValor = 0;
 
-        $modeloA = $instancia->segmentoA();
-        $modeloADefault = $instancia->segmentoADefault();
-        $modeloAValidacao = $instancia->segmentoAValidacao();
-        $modeloADinamico = $instancia->segmentoADinamico();
+        $modeloA = $iLayout->segmentoA();
+        $modeloADefault = $iLayout->segmentoADefault();
+        $modeloAValidacao = $iLayout->segmentoAValidacao();
+        $modeloADinamico = $iLayout->segmentoADinamico();
 
-        $segmentosObrigatorios = $instancia->segmentosObrigatorios();
+        $segmentosObrigatorios = $iLayout->segmentosObrigatorios();
 
         $validacaoAgz->validaSegmentosObrigatorios($this->segmentoA, "A", $segmentosObrigatorios);
         $validacaoAgz->validaSegmentosObrigatorios($this->segmentoG, "G", $segmentosObrigatorios);
@@ -62,7 +69,7 @@ class Agz
 
         foreach ($modeloA as $key => $especificacoes) {
 
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoA[$key], $key, $config, 'segmentoA');
+            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->segmentoA[$key], $key, $config, 'segmentoA');
 
             if (isset($modeloAValidacao[$key])) {
                 $validacaoAgz->{$modeloAValidacao[$key]}($valor, $key, $this->segmentoA, 'segmentoA');
@@ -71,49 +78,49 @@ class Agz
             $segmentoA[] = $valor;
         }
 
-        $resultado[] = $segmentoA;
+        $this->linhas[] = $segmentoA;
 
-        $modeloG = $instancia->segmentoG();
-        $modeloGValidacao = $instancia->segmentoGValidacao();
-        $modeloGDinamico = $instancia->segmentoGDinamico();
-        $modeloGDefault = $instancia->segmentoGDefault();
+        $modeloG = $iLayout->segmentoG();
+        $modeloGValidacao = $iLayout->segmentoGValidacao();
+        $modeloGDinamico = $iLayout->segmentoGDinamico();
+        $modeloGDefault = $iLayout->segmentoGDefault();
 
         $this->segmentoG = $validacaoAgz->setDefault($modeloG, $this->segmentoG, $modeloGDefault, $modeloGDinamico, 'segmentoG');
 
         foreach ($this->segmentoG as $segmento) {
 
-            $segmentoG = [];            
+            $segmentoG = [];
 
             foreach ($modeloG as $key => $especificacoes) {
 
-                $valor = $instanciaPadrao->tratarDados($especificacoes, $segmento[$key], $key, $config, 'segmentoG');
+                $valor = $arquivoPadrao->tratarDados($especificacoes, $segmento[$key], $key, $config, 'segmentoG');
 
                 if (isset($modeloGValidacao[$key])) {
                     $validacaoAgz->{$modeloGValidacao[$key]}($valor, $key, $segmento[$key], 'segmentoG');
                 }
 
-                if($key == 6){
-                    $somaValor +=  $instanciaPadrao->toFloat($valor);
+                if ($key == 6) {
+                    $somaValor += $arquivoPadrao->toFloat($valor);
                 }
-                
+
                 $segmentoG[] = $valor;
             }
 
-            $resultado[] = $segmentoG;
+            $this->linhas[] = $segmentoG;
             $contaLinhas++;
         }
 
-        $modeloZ = $instancia->segmentoZ();
-        $modeloZDefault = $instancia->segmentoZDefault();
-        $modeloZValidacao = $instancia->segmentoZValidacao();
-        $modeloZDinamico = $instancia->segmentoZDinamico($contaLinhas, $somaValor);
+        $modeloZ = $iLayout->segmentoZ();
+        $modeloZDefault = $iLayout->segmentoZDefault();
+        $modeloZValidacao = $iLayout->segmentoZValidacao();
+        $modeloZDinamico = $iLayout->segmentoZDinamico($contaLinhas, $somaValor);
         $segmentoZ = [];
-        
-        $this->segmentoZ = $validacaoAgz->setDefault($modeloZ, $this->segmentoZ, $modeloZDefault, $modeloZDinamico, 'segmentoZ');        
-        
+
+        $this->segmentoZ = $validacaoAgz->setDefault($modeloZ, $this->segmentoZ, $modeloZDefault, $modeloZDinamico, 'segmentoZ');
+
         foreach ($modeloZ as $key => $especificacoes) {
 
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $this->segmentoZ[$key], $key, $config, 'segmentoZ');
+            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->segmentoZ[$key], $key, $config, 'segmentoZ');
 
             if (isset($modeloZValidacao[$key])) {
                 $validacaoAgz->{$modeloZValidacao[$key]}($valor, $key, $this->segmentoZ, 'segmentoZ');
@@ -122,10 +129,19 @@ class Agz
             $segmentoZ[] = $valor;
         }
 
-        $resultado[] = $segmentoZ;
-        $validacaoAgz->validaTamanhoArray($resultado);
+        $this->linhas[] = $segmentoZ;
+        $validacaoAgz->validaTamanhoArray($this->linhas);
 
-        return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);
+        return $this->linhas;
+    }
+
+    public function gerar($layout, $caminhoArquivo, $nomeArquivo, $config = [])
+    {
+        $arquivoPadrao = new ArquivoPadrao();
+
+        $linhas = $this->processar($layout, $config);
+
+        return $arquivoPadrao->gravar($linhas, $caminhoArquivo, $nomeArquivo);
     }
 
 }
