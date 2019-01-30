@@ -83,7 +83,7 @@ class Bradesco11
             21 => [2, 'num'],
             22 => [10, 'texto'],
             23 => [6, 'num'],
-            24 => [13, 'num'],
+            24 => [13, 'valor'],
             25 => [6, 'num'],
             26 => [5, 'num'],
             27 => [2, 'num'],
@@ -91,11 +91,11 @@ class Bradesco11
             29 => [6, 'num'],
             30 => [2, 'num'],
             31 => [2, 'num'],
-            32 => [13, 'num'],
+            32 => [13, 'valor'],
             33 => [6, 'num'],
-            34 => [13, 'num'],
-            35 => [13, 'num'],
-            36 => [13, 'num'],
+            34 => [13, 'valor'],
+            35 => [13, 'valor'],
+            36 => [13, 'valor'],
             37 => [2, 'num'],
             38 => [14, 'num'],
             39 => [40, 'texto'],
@@ -134,16 +134,16 @@ class Bradesco11
     public function tipoUmValidacao()
     {
         return [
-            10 => "validaCodigoMulta",
-            15 => "validaOpcao1e2",
-            23 => "validaData",
-            27 => "validaEspecieTitulo",
-            29 => "validaData",
-            33 => "validaData",
-            37 => "validaOpcao1e2",
-            38 => "validaCpfeCnpj",
-            42 => "validaCep",
-            43 => "validaSufixoCep"
+            /* 10 => "validaCodigoMulta",
+              15 => "validaOpcao1e2",
+              23 => "validaData",
+              27 => "validaEspecieTitulo",
+              29 => "validaData",
+              33 => "validaData",
+              37 => "validaOpcao1e2",
+              38 => "validaCpfeCnpj",
+              42 => "validaCep",
+              43 => "validaSufixoCep" */
         ];
     }
 
@@ -192,8 +192,8 @@ class Bradesco11
     public function tipoDoisValidacao()
     {
         return [
-            6 => "validaData",
-            8 => "validaData"
+            /* 6 => "validaData",
+              8 => "validaData" */
         ];
     }
 
@@ -267,8 +267,8 @@ class Bradesco11
     public function tipoTresValidacao()
     {
         return [
-            4 => "validaCodigoRateio",
-            5 => "validaOpcao1e2"
+            /* 4 => "validaCodigoRateio",
+              5 => "validaOpcao1e2" */
         ];
     }
 
@@ -341,9 +341,9 @@ class Bradesco11
     public function tipoSeteValidacao()
     {
         return [
-            3 => "validaCep",
-            4 => "validaSufixoCep",
-            6 => "validaUf"
+            /* 3 => "validaCep",
+              4 => "validaSufixoCep",
+              6 => "validaUf" */
         ];
     }
 
@@ -365,8 +365,7 @@ class Bradesco11
     {
         return [
             1 => 9,
-            2 => "Branco",
-            3 => 8,
+            2 => "",
         ];
     }
 
@@ -375,15 +374,17 @@ class Bradesco11
         return [];
     }
 
-    public function traillerArquivoDinamico()
+    public function traillerArquivoDinamico($sequencial)
     {
-        return [];
+        return [
+            3 => $sequencial
+        ];
     }
 
     public function segmentosObrigatorios()
     {
         return [
-            0, 1, 6, 9,
+            0, 1, 9,
         ];
     }
 
