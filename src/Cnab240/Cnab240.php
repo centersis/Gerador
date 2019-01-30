@@ -15,6 +15,7 @@ class Cnab240
     private $segmentoR;
     private $traillerLote;
     private $traillerArquivo;
+    private $linhas;
 
     function __construct()
     {
@@ -25,6 +26,7 @@ class Cnab240
         $this->segmentoR = [];
         $this->traillerLote = [];
         $this->traillerArquivo = [];
+        $this->linhas = [];
     }
 
     function setHeaderArquivo($headerArquivo)
@@ -62,33 +64,48 @@ class Cnab240
         $this->traillerArquivo = $traillerArquivo;
     }
 
-    public function gerar($layout, $caminhoArquivo, $nomeArquivo, $config = [])
+    public function getLinhas()
     {
+        return $this->linhas;
+    }
 
+    public function getLinhasAgrupadas()
+    {
+        $agrupado = [];
+
+        foreach ($this->linhas as $dados) {
+            $agrupado[] = implode('', $dados);
+        }
+
+        return $agrupado;
+    }
+
+    public function processar($layout, $config = [])
+    {
         $caminho = 'Cnab240\\Layout\\' . $layout;
 
-        $instancia = new $caminho;
-        $instanciaPadrao = new ArquivoPadrao();
+        $iLayout = new $caminho;
+        $arquivoPadrao = new ArquivoPadrao();
         $validacaoCnab = new ValidacaoCnab240();
 
-        $resultado = [];
+        $this->linhas = [];
         $contalinhas = 4;
         $somaValor = 0;
         $quantTitulos = 0;
         $headerArquivo = [];
 
-        $segmentosObrigatorios = $instancia->segmentosObrigatorios();
-        $modeloHeaderArqDefault = $instancia->headerArquivoDefault();
-        $modeloHeaderArqValidacao = $instancia->headerArquivoValidacao();
-        $modeloHeaderArqDinamico = $instancia->headerArquivoDinamico();
-        $modeloHeaderArquivo = $instancia->headerArquivo();
+        $segmentosObrigatorios = $iLayout->segmentosObrigatorios();
+        $modeloHeaderArqDefault = $iLayout->headerArquivoDefault();
+        $modeloHeaderArqValidacao = $iLayout->headerArquivoValidacao();
+        $modeloHeaderArqDinamico = $iLayout->headerArquivoDinamico();
+        $modeloHeaderArquivo = $iLayout->headerArquivo();
         $validacaoCnab->validaSegmentosObrigatorios($this->headerArquivo, 0, $segmentosObrigatorios);
 
         $this->headerArquivo = $validacaoCnab->setDefault($modeloHeaderArquivo, $this->headerArquivo, $modeloHeaderArqDefault, $modeloHeaderArqDinamico, 'headerArquivo');
 
         foreach ($modeloHeaderArquivo as $key => $especificacoes) {
 
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $this->headerArquivo[$key], $key, $config, 'headerArquivo');
+            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerArquivo[$key], $key, $config, 'headerArquivo');
 
             if (isset($modeloHeaderArqValidacao[$key])) {
                 $validacaoCnab->{$modeloHeaderArqValidacao[$key]}($valor, $key, $this->headerArquivo, 'headerArquivo');
@@ -97,12 +114,12 @@ class Cnab240
             $headerArquivo[] = $valor;
         }
 
-        $resultado[] = $headerArquivo;
+        $this->linhas[] = $headerArquivo;
 
-        $modeloHeaderLoteDefault = $instancia->headerloteDefault($headerArquivo);
-        $modeloHeaderLoteValidacao = $instancia->headerLoteValidacao();
-        $modeloHeaderLoteDinamico = $instancia->headerLoteDinamico();
-        $modeloHeaderLote = $instancia->headerLote();
+        $modeloHeaderLoteDefault = $iLayout->headerloteDefault($headerArquivo);
+        $modeloHeaderLoteValidacao = $iLayout->headerLoteValidacao();
+        $modeloHeaderLoteDinamico = $iLayout->headerLoteDinamico();
+        $modeloHeaderLote = $iLayout->headerLote();
 
         $headerLote = [];
         $validacaoCnab->validaSegmentosObrigatorios($this->headerLote, 1, $segmentosObrigatorios);
@@ -111,7 +128,7 @@ class Cnab240
 
         foreach ($modeloHeaderLote as $key => $especificacoes) {
 
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $this->headerLote[$key], $key, $config, 'headerLote');
+            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerLote[$key], $key, $config, 'headerLote');
 
             if (isset($modeloHeaderLoteValidacao[$key])) {
                 $validacaoCnab->{$modeloHeaderLoteValidacao[$key]}($valor, $key, $headerLote, 'headerLote');
@@ -120,29 +137,29 @@ class Cnab240
             $headerLote[] = $valor;
         }
 
-        $resultado[] = $headerLote;
+        $this->linhas[] = $headerLote;
 
-        $modeloSegmentoP = $instancia->segmentoP();
-        $modeloSegmentoPDefault = $instancia->segmentoPDefault($headerArquivo);
-        $modeloSegmentoPValidacao = $instancia->segmentoPValidacao();
-        $modeloSegmentoPDinamico = $instancia->segmentoPDinamico();
+        $modeloSegmentoP = $iLayout->segmentoP();
+        $modeloSegmentoPDefault = $iLayout->segmentoPDefault($headerArquivo);
+        $modeloSegmentoPValidacao = $iLayout->segmentoPValidacao();
+        $modeloSegmentoPDinamico = $iLayout->segmentoPDinamico();
 
         $validacaoCnab->validaSegmentosObrigatorios($this->segmentoP, "P", $segmentosObrigatorios);
         $this->segmentoP = $validacaoCnab->setDefault($modeloSegmentoP, $this->segmentoP, $modeloSegmentoPDefault, $modeloSegmentoPDinamico, 'segmentoP');
 
-        $modeloSegmentoQ = $instancia->segmentoQ();
-        $modeloSegmentoQDefault = $instancia->segmentoQDefault($headerArquivo);
-        $modeloSegmentoQValidacao = $instancia->segmentoQValidacao();
-        $modeloSegmentoQDinamico = $instancia->segmentoQDinamico();
+        $modeloSegmentoQ = $iLayout->segmentoQ();
+        $modeloSegmentoQDefault = $iLayout->segmentoQDefault($headerArquivo);
+        $modeloSegmentoQValidacao = $iLayout->segmentoQValidacao();
+        $modeloSegmentoQDinamico = $iLayout->segmentoQDinamico();
 
         $validacaoCnab->validaSegmentosObrigatorios($this->segmentoQ, "Q", $segmentosObrigatorios);
         $this->segmentoQ = $validacaoCnab->setDefault($modeloSegmentoQ, $this->segmentoQ, $modeloSegmentoQDefault, $modeloSegmentoQDinamico, 'segmentoQ');
 
         if ($this->segmentoR) {
-            $modeloSegmentoR = $instancia->segmentoR();
-            $modeloSegmentoRDefault = $instancia->segmentoRDefault($headerArquivo);
-            $modeloSegmentoRValidacao = $instancia->segmentoRValidacao();
-            $modeloSegmentoRDinamico = $instancia->segmentoRDinamico();
+            $modeloSegmentoR = $iLayout->segmentoR();
+            $modeloSegmentoRDefault = $iLayout->segmentoRDefault($headerArquivo);
+            $modeloSegmentoRValidacao = $iLayout->segmentoRValidacao();
+            $modeloSegmentoRDinamico = $iLayout->segmentoRDinamico();
 
             $validacaoCnab->validaSegmentosObrigatorios($this->segmentoR, "R", $segmentosObrigatorios);
             $this->segmentoR = $validacaoCnab->setDefault($modeloSegmentoR, $this->segmentoR, $modeloSegmentoRDefault, $modeloSegmentoRDinamico, 'segmentoR');
@@ -155,7 +172,7 @@ class Cnab240
 
             foreach ($modeloSegmentoP as $keyModeloP => $especificacoesModeloP) {
 
-                $valorP = $instanciaPadrao->tratarDados($especificacoesModeloP, $dadosSegmentoP[$keyModeloP], $keyModeloP, $config, 'segmentoP');
+                $valorP = $arquivoPadrao->tratarDados($especificacoesModeloP, $dadosSegmentoP[$keyModeloP], $keyModeloP, $config, 'segmentoP');
 
                 if (isset($modeloSegmentoPValidacao[$keyModeloP])) {
                     $validacaoCnab->{$modeloSegmentoPValidacao[$keyModeloP]}($valorP, $keyModeloP, $dadosSegmentoP, 'segmentoPY');
@@ -170,7 +187,7 @@ class Cnab240
 
             foreach ($modeloSegmentoQ as $keyModeloQ => $especificacoesModeloQ) {
 
-                $valorQ = $instanciaPadrao->tratarDados($especificacoesModeloQ, $this->segmentoQ[$keySegmentoP][$keyModeloQ], $keyModeloQ, $config, 'segmentoQ');
+                $valorQ = $arquivoPadrao->tratarDados($especificacoesModeloQ, $this->segmentoQ[$keySegmentoP][$keyModeloQ], $keyModeloQ, $config, 'segmentoQ');
 
                 if (isset($modeloSegmentoQValidacao[$keyModeloQ])) {
                     $validacaoCnab->{$modeloSegmentoQValidacao[$keyModeloQ]}($valorQ, $keyModeloQ, $this->segmentoQ[$keySegmentoP], 'segmentoQ');
@@ -186,7 +203,7 @@ class Cnab240
 
                 foreach ($modeloSegmentoR as $keyModeloR => $especificacoesModeloR) {
 
-                    $valorR = $instanciaPadrao->tratarDados($especificacoesModeloR, $this->segmentoR[$keySegmentoP][$keyModeloR], $keyModeloR, $config, 'segmentoR');
+                    $valorR = $arquivoPadrao->tratarDados($especificacoesModeloR, $this->segmentoR[$keySegmentoP][$keyModeloR], $keyModeloR, $config, 'segmentoR');
 
                     if (isset($modeloSegmentoRValidacao[$keyModeloR])) {
                         $validacaoCnab->{$modeloSegmentoRValidacao[$keyModeloR]}($valorR, $keyModeloR, $this->segmentoR[$keySegmentoP], 'segmentoR');
@@ -198,26 +215,26 @@ class Cnab240
                 $contalinhas++;
             }
 
-            $resultado[] = $segmentoP;
-            $resultado[] = $segmentoQ;
+            $this->linhas[] = $segmentoP;
+            $this->linhas[] = $segmentoQ;
 
             if ($this->segmentoR) {
-                $resultado[] = $segmentoR;
+                $this->linhas[] = $segmentoR;
             }
         }
 
 
-        $modeloTraillerLote = $instancia->traillerLote();
-        $modeloTraillerLoteDefault = $instancia->traillerLoteDefault($headerArquivo);
-        $modeloTraillerLoteValidacao = $instancia->traillerLoteValidacao();
-        $modeloTraillerLoteDinamico = $instancia->traillerLoteDinamico($quantTitulos, $somaValor);
+        $modeloTraillerLote = $iLayout->traillerLote();
+        $modeloTraillerLoteDefault = $iLayout->traillerLoteDefault($headerArquivo);
+        $modeloTraillerLoteValidacao = $iLayout->traillerLoteValidacao();
+        $modeloTraillerLoteDinamico = $iLayout->traillerLoteDinamico($quantTitulos, $somaValor);
         $traillerLote = [];
 
         $this->traillerLote = $validacaoCnab->setDefault($modeloTraillerLote, $this->traillerLote, $modeloTraillerLoteDefault, $modeloTraillerLoteDinamico, 'traillerLote');
 
         foreach ($modeloTraillerLote as $key => $especificacoes) {
 
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $this->traillerLote[$key], $key, $config, 'traillerLote');
+            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->traillerLote[$key], $key, $config, 'traillerLote');
 
             if (isset($modeloTraillerLoteValidacao[$key])) {
                 $validacaoCnab->{$modeloTraillerLoteValidacao[$key]}($valor, $key, $this->traillerLote, 'traillerLote');
@@ -227,12 +244,12 @@ class Cnab240
         }
 
         $validacaoCnab->validaSegmentosObrigatorios($this->traillerLote, 5, $segmentosObrigatorios);
-        $resultado[] = $traillerLote;
+        $this->linhas[] = $traillerLote;
 
-        $modeloTraillerArquivo = $instancia->traillerArquivo();
-        $modeloTraillerArquivoDefault = $instancia->traillerArquivoDefault($headerArquivo);
-        $modeloTraillerArquivoValidacao = $instancia->traillerArquivoValidacao();
-        $modeloTraillerArquivoDinamico = $instancia->traillerArquivoDinamico($contalinhas);
+        $modeloTraillerArquivo = $iLayout->traillerArquivo();
+        $modeloTraillerArquivoDefault = $iLayout->traillerArquivoDefault($headerArquivo);
+        $modeloTraillerArquivoValidacao = $iLayout->traillerArquivoValidacao();
+        $modeloTraillerArquivoDinamico = $iLayout->traillerArquivoDinamico($contalinhas);
         $traillerArquivo = [];
 
         $this->traillerArquivo = $validacaoCnab->setDefault($modeloTraillerArquivo, $this->traillerArquivo, $modeloTraillerArquivoDefault, $modeloTraillerArquivoDinamico, 'traillerArquivo');
@@ -240,7 +257,7 @@ class Cnab240
         foreach ($modeloTraillerArquivo as $key => $especificacoes) {
 
 
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $this->traillerArquivo[$key], $key, $config, 'traillerArquivo');
+            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->traillerArquivo[$key], $key, $config, 'traillerArquivo');
 
             if (isset($modeloTraillerArquivoValidacao[$key])) {
                 $validacaoCnab->{$modeloTraillerArquivoValidacao[$key]}($valor, $key, $this->traillerArquivo, 'traillerArquivo');
@@ -249,10 +266,19 @@ class Cnab240
             $traillerArquivo[] = $valor;
         }
 
-        $resultado[] = $traillerArquivo;
-        $validacaoCnab->validaTamanhoArray($resultado);
+        $this->linhas[] = $traillerArquivo;
+        $validacaoCnab->validaTamanhoArray($this->linhas);
 
-        return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);
+        return $this->linhas;
+    }
+
+    public function gerar($layout, $caminhoArquivo, $nomeArquivo, $config = [])
+    {
+        $arquivoPadrao = new ArquivoPadrao();
+
+        $linhas = $this->processar($layout, $config);
+
+        return $arquivoPadrao->gravar($linhas, $caminhoArquivo, $nomeArquivo);
     }
 
 }

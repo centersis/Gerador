@@ -440,9 +440,9 @@ $instanciaCnab400Bra->setTraillerArquivo($trailler);
 try {
 
     $instanciaAgz->gerar('Agz02', 'Storage', 'arquivoAgz02.txt', ['case' => 'upper']);
-    //$instanciaCnab240->gerar("Sicoob081", 'Storage', "arquivoSicoob081.txt", ['case' => 'upper']);
-    //$instanciaCnab400Itau->gerar("Itau", 'Storage', "arquivoItau.txt", ['case' => 'upper']);
-    //$instanciaCnab400Bra->gerar("Bradesco11",'Storage', "arquivoBradesco.txt");
+    $instanciaCnab240->gerar("Sicoob081", 'Storage', "arquivoSicoob081.txt", ['case' => 'upper']);
+    $instanciaCnab400Itau->gerar("Itau", 'Storage', "arquivoItau.txt", ['case' => 'upper']);
+    $instanciaCnab400Bra->gerar("Bradesco11",'Storage', "arquivoBradesco.txt");
 
     echo "Arquivo Gerado " . microtime();
 } catch (\Exception $ex) {

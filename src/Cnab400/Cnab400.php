@@ -17,6 +17,7 @@ class Cnab400
     private $tipoSeis;
     private $tipoSete;
     private $traillerArquivo;
+    private $linhas;
 
     function __construct()
     {
@@ -29,6 +30,7 @@ class Cnab400
         $this->tipoSeis = [];
         $this->tipoSete = [];
         $this->traillerArquivo = [];
+        $this->linhas = [];
     }
 
     function setHeaderArquivo($headerArquivo)
@@ -75,30 +77,46 @@ class Cnab400
     {
         $this->traillerArquivo = $traillerArquivo;
     }
+    
+    public function getLinhas()
+    {
+        return $this->linhas;
+    }
 
-    public function gerar($layout, $caminhoArquivo, $nomeArquivo, $config = [])
+    public function getLinhasAgrupadas()
+    {
+        $agrupado = [];
+
+        foreach ($this->linhas as $dados) {
+            $agrupado[] = implode('', $dados);
+        }
+
+        return $agrupado;
+    }
+    
+    public function processar($layout, $config = [])
     {
         $caminho = 'Cnab400\\Layout\\' . $layout;
-        $instancia = new $caminho;
-        $instanciaPadrao = new ArquivoPadrao();
+        $iLayout = new $caminho;
+        $arquivoPadrao = new ArquivoPadrao();
         $validacaoCnab = new ValidacaoCnab400();
 
-        $resultado = [];
+        $this->linhas = [];
         $headerArquivo = [];
 
-        $modeloHeaderArqDefault = $instancia->headerArquivoDefault();
-        $modeloHeaderArqValidacao = $instancia->headerArquivoValidacao();
-        $modeloHeaderArqDinamico = $instancia->headerArquivoDinamico();
-        $modeloHeaderArquivo = $instancia->headerArquivo();
+        $modeloHeaderArqDefault = $iLayout->headerArquivoDefault();
+        $modeloHeaderArqValidacao = $iLayout->headerArquivoValidacao();
+        $modeloHeaderArqDinamico = $iLayout->headerArquivoDinamico();
+        $modeloHeaderArquivo = $iLayout->headerArquivo();
 
-        $segmentosObrigatorios = $instancia->segmentosObrigatorios();
+        $segmentosObrigatorios = $iLayout->segmentosObrigatorios();
         $validacaoCnab->validaSegmentosObrigatorios($this->headerArquivo, 0, $segmentosObrigatorios);
 
         $this->headerArquivo = $validacaoCnab->setDefault($modeloHeaderArquivo, $this->headerArquivo, $modeloHeaderArqDefault, $modeloHeaderArqDinamico, 'headerArquivo');
 
         foreach ($modeloHeaderArquivo as $key => $especificacoes) {
 
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $this->headerArquivo[$key], $key, $config, 'headerArquivo');
+            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerArquivo[$key], $key, $config, 'headerArquivo');
 
             if (isset($modeloHeaderArqValidacao[$key])) {
                 $validacaoCnab->{$modeloHeaderArqValidacao[$key]}($valor, $key, $this->headerArquivo, 'headerArquivo');
@@ -107,66 +125,66 @@ class Cnab400
             $headerArquivo[] = $valor;
         }
 
-        $resultado[] = $headerArquivo;
+        $this->linhas[] = $headerArquivo;
 
-        $modeloTipoUmValidacao = $instancia->tipoUmValidacao();
-        $modeloTipoUmDinamico = $instancia->tipoUmDinamico();
-        $modeloTipoUmDefault = $instancia->tipoUmDefault();
-        $modeloTipoUm = $instancia->tipoUm();
+        $modeloTipoUmValidacao = $iLayout->tipoUmValidacao();
+        $modeloTipoUmDinamico = $iLayout->tipoUmDinamico();
+        $modeloTipoUmDefault = $iLayout->tipoUmDefault();
+        $modeloTipoUm = $iLayout->tipoUm();
 
         $validacaoCnab->validaSegmentosObrigatorios($this->tipoUm, 1, $segmentosObrigatorios);
         $this->tipoUm = $validacaoCnab->setDefault($modeloTipoUm, $this->tipoUm, $modeloTipoUmDefault, $modeloTipoUmDinamico, 'tipoUm');
 
         if ($this->tipoDois) {
-            $modeloTipoDoisValidacao = $instancia->tipoDoisValidacao();
-            $modeloTipoDoisDinamico = $instancia->tipoDoisDinamico();
-            $modeloTipoDoisDefault = $instancia->tipoDoisDefault();
-            $modeloTipoDois = $instancia->tipoDois();
+            $modeloTipoDoisValidacao = $iLayout->tipoDoisValidacao();
+            $modeloTipoDoisDinamico = $iLayout->tipoDoisDinamico();
+            $modeloTipoDoisDefault = $iLayout->tipoDoisDefault();
+            $modeloTipoDois = $iLayout->tipoDois();
             $validacaoCnab->validaSegmentosObrigatorios($this->tipoDois, 2, $segmentosObrigatorios);
             $this->tipoDois = $validacaoCnab->setDefault($modeloTipoDois, $this->tipoDois, $modeloTipoDoisDefault, $modeloTipoDoisDinamico, 'tipoDois');
         }
 
         if ($this->tipoTres) {
-            $modeloTipoTresValidacao = $instancia->tipoTresValidacao();
-            $modeloTipoTresDinamico = $instancia->tipoTresDinamico();
-            $modeloTipoTresDefault = $instancia->tipoTresDefault();
-            $modeloTipoTres = $instancia->tipoTres();
+            $modeloTipoTresValidacao = $iLayout->tipoTresValidacao();
+            $modeloTipoTresDinamico = $iLayout->tipoTresDinamico();
+            $modeloTipoTresDefault = $iLayout->tipoTresDefault();
+            $modeloTipoTres = $iLayout->tipoTres();
             $validacaoCnab->validaSegmentosObrigatorios($this->tipoTres, 3, $segmentosObrigatorios);
             $this->tipoTres = $validacaoCnab->setDefault($modeloTipoTres, $this->tipoTres, $modeloTipoTresDefault, $modeloTipoTresDinamico, 'tipoTres');
         }
 
         if ($this->tipoQuatro) {
-            $modeloTipoQuatroValidacao = $instancia->tipoQuatroValidacao();
-            $modeloTipoQuatroDinamico = $instancia->tipoQuatroDinamico();
-            $modeloTipoQuatroDefault = $instancia->tipoQuatroDefault();
-            $modeloTipoQuatro = $instancia->tipoQuatro();
+            $modeloTipoQuatroValidacao = $iLayout->tipoQuatroValidacao();
+            $modeloTipoQuatroDinamico = $iLayout->tipoQuatroDinamico();
+            $modeloTipoQuatroDefault = $iLayout->tipoQuatroDefault();
+            $modeloTipoQuatro = $iLayout->tipoQuatro();
             $validacaoCnab->validaSegmentosObrigatorios($this->tipoQuatro, 4, $segmentosObrigatorios);
             $this->tipoQuatro = $validacaoCnab->setDefault($modeloTipoQuatro, $this->tipoQuatro, $modeloTipoQuatroDefault, $modeloTipoQuatroDinamico, 'tipoQuatro');
         }
 
         if ($this->tipoCinco) {
-            $modeloTipoCincoValidacao = $instancia->tipoCincoValidacao();
-            $modeloTipoCincoDinamico = $instancia->tipoCincoDinamico();
-            $modeloTipoCincoDefault = $instancia->tipoCincoDefault();
-            $modeloTipoCinco = $instancia->tipoCinco();
+            $modeloTipoCincoValidacao = $iLayout->tipoCincoValidacao();
+            $modeloTipoCincoDinamico = $iLayout->tipoCincoDinamico();
+            $modeloTipoCincoDefault = $iLayout->tipoCincoDefault();
+            $modeloTipoCinco = $iLayout->tipoCinco();
             $validacaoCnab->validaSegmentosObrigatorios($this->tipoCinco, 5, $segmentosObrigatorios);
             $this->tipoCinco = $validacaoCnab->setDefault($modeloTipoCinco, $this->tipoCinco, $modeloTipoCincoDefault, $modeloTipoCincoDinamico, 'tipoCinco');
         }
 
         if ($this->tipoSeis) {
-            $modeloTipoSeisValidacao = $instancia->tipoSeisValidacao();
-            $modeloTipoSeisDinamico = $instancia->tipoSeisDinamico();
-            $modeloTipoSeisDefault = $instancia->tipoSeisDefault();
-            $modeloTipoSeis = $instancia->tipoSeis();
+            $modeloTipoSeisValidacao = $iLayout->tipoSeisValidacao();
+            $modeloTipoSeisDinamico = $iLayout->tipoSeisDinamico();
+            $modeloTipoSeisDefault = $iLayout->tipoSeisDefault();
+            $modeloTipoSeis = $iLayout->tipoSeis();
             $validacaoCnab->validaSegmentosObrigatorios($this->tipoSeis, 6, $segmentosObrigatorios);
             $this->tipoSeis = $validacaoCnab->setDefault($modeloTipoSeis, $this->tipoSeis, $modeloTipoSeisDefault, $modeloTipoSeisDinamico, 'tipoSeis');
         }
 
         if ($this->tipoSete) {
-            $modeloTipoSeteValidacao = $instancia->tipoSeteValidacao();
-            $modeloTipoSeteDinamico = $instancia->tipoSeteDinamico();
-            $modeloTipoSeteDefault = $instancia->tipoSeteDefault();
-            $modeloTipoSete = $instancia->tipoSete();
+            $modeloTipoSeteValidacao = $iLayout->tipoSeteValidacao();
+            $modeloTipoSeteDinamico = $iLayout->tipoSeteDinamico();
+            $modeloTipoSeteDefault = $iLayout->tipoSeteDefault();
+            $modeloTipoSete = $iLayout->tipoSete();
             $validacaoCnab->validaSegmentosObrigatorios($this->tipoSete, 7, $segmentosObrigatorios);
             $this->tipoSete = $validacaoCnab->setDefault($modeloTipoSete, $this->tipoSete, $modeloTipoSeteDefault, $modeloTipoSeteDinamico, 'tipoSete');
         }
@@ -177,7 +195,7 @@ class Cnab400
 
             foreach ($modeloTipoUm as $keyModelo1 => $especificacoesModelo1) {               
 
-                $valorUm = $instanciaPadrao->tratarDados($especificacoesModelo1, $dadosTipoUm[$keyModelo1], $keyModelo1, $config, 'tipoUm');
+                $valorUm = $arquivoPadrao->tratarDados($especificacoesModelo1, $dadosTipoUm[$keyModelo1], $keyModelo1, $config, 'tipoUm');
 
                 if (isset($modeloTipoUmValidacao[$keyModelo1])) {
 
@@ -195,7 +213,7 @@ class Cnab400
                 
                 foreach ($modeloTipoDois as $keyModelo2 => $especificacoesModelo2) {
                     
-                    $valorDois = $instanciaPadrao->tratarDados($especificacoesModelo2, $this->tipoDois[$keyTipoUm][$keyModelo2], $keyModelo2, $config, 'tipoDois');
+                    $valorDois = $arquivoPadrao->tratarDados($especificacoesModelo2, $this->tipoDois[$keyTipoUm][$keyModelo2], $keyModelo2, $config, 'tipoDois');
 
                     if (isset($modeloTipoDoisValidacao[$keyModelo2])) {
                         $validacaoCnab->{$modeloTipoDoisValidacao[$keyModelo2]}($valorDois, $keyModelo2, $this->tipoDois[$keyTipoUm], 'tipoDois');
@@ -212,7 +230,7 @@ class Cnab400
 
                 foreach ($modeloTipoTres as $keyModelo3 => $especificacoesModelo3) {
                     
-                    $valorTres = $instanciaPadrao->tratarDados($especificacoesModelo3, $this->tipoTres[$keyTipoUm][$keyModelo3], $keyModelo3, $config, 'tipoTres');
+                    $valorTres = $arquivoPadrao->tratarDados($especificacoesModelo3, $this->tipoTres[$keyTipoUm][$keyModelo3], $keyModelo3, $config, 'tipoTres');
 
                     if (isset($modeloTipoTresValidacao[$keyModelo3])) {
                         $validacaoCnab->{$modeloTipoTresValidacao[$keyModelo3]}($valorTres, $keyModelo3, $this->tipoTres[$keyTipoUm], 'tipoTres');
@@ -229,7 +247,7 @@ class Cnab400
 
                 foreach ($modeloTipoQuatro as $keyModelo4 => $especificacoesModelo4) {
                     
-                    $valorQuatro = $instanciaPadrao->tratarDados($especificacoesModelo4, $this->tipoQuatro[$keyTipoUm][$keyModelo4], $keyModelo4, $config, 'tipoQuatro');
+                    $valorQuatro = $arquivoPadrao->tratarDados($especificacoesModelo4, $this->tipoQuatro[$keyTipoUm][$keyModelo4], $keyModelo4, $config, 'tipoQuatro');
 
                     if (isset($modeloTipoQuatroValidacao[$keyModelo4])) {
                         $validacaoCnab->{$modeloTipoQuatroValidacao[$keyModelo4]}($valorQuatro, $keyModelo4, $this->tipoQuatro[$keyTipoUm], 'tipoQuatro');
@@ -246,7 +264,7 @@ class Cnab400
 
                 foreach ($modeloTipoCinco as $keyModelo5 => $especificacoesModelo5) {
                     
-                    $valorCinco = $instanciaPadrao->tratarDados($especificacoesModelo5, $this->tipoCinco[$keyTipoUm][$keyModelo5], $keyModelo5, $config, 'tipoCinco');
+                    $valorCinco = $arquivoPadrao->tratarDados($especificacoesModelo5, $this->tipoCinco[$keyTipoUm][$keyModelo5], $keyModelo5, $config, 'tipoCinco');
 
                     if (isset($modeloTipoCincoValidacao[$keyModelo5])) {
                         $validacaoCnab->{$modeloTipoCincoValidacao[$keyModelo5]}($valorCinco, $keyModelo5, $this->tipoCinco[$keyTipoUm], 'tipoCinco');
@@ -262,7 +280,7 @@ class Cnab400
 
                 foreach ($modeloTipoSeis as $keyModelo6 => $especificacoesModelo6) {
                     
-                    $valorSeis = $instanciaPadrao->tratarDados($especificacoesModelo6, $this->tipoSeis[$keyTipoUm][$keyModelo6], $keyModelo6, $config, 'tpoSeis');
+                    $valorSeis = $arquivoPadrao->tratarDados($especificacoesModelo6, $this->tipoSeis[$keyTipoUm][$keyModelo6], $keyModelo6, $config, 'tpoSeis');
 
                     if (isset($modeloTipoSeisValidacao[$keyModelo6])) {
                         $validacaoCnab->{$modeloTipoSeisValidacao[$keyModelo6]}($valorSeis, $keyModelo6, $this->tipoSeis[$keyTipoUm], 'tipoSeis');
@@ -278,7 +296,7 @@ class Cnab400
 
                 foreach ($modeloTipoSete as $keyModelo7 => $especificacoesModelo7) {
                    
-                    $valorSete = $instanciaPadrao->tratarDados($especificacoesModelo7, $this->tipoSete[$keyTipoUm][$keyModelo7], $keyModelo7, $config, 'tipoSete');
+                    $valorSete = $arquivoPadrao->tratarDados($especificacoesModelo7, $this->tipoSete[$keyTipoUm][$keyModelo7], $keyModelo7, $config, 'tipoSete');
 
                     if (isset($modeloTipoSeteValidacao[$keyModelo7])) {
                         $validacaoCnab->{$modeloTipoSeteValidacao[$keyModelo7]}($valorSete, $keyModelo7, $tipoSete, 'tipoSete');
@@ -288,38 +306,38 @@ class Cnab400
                 }
             }
 
-            $resultado[] = $tipoUm;
+            $this->linhas[] = $tipoUm;
             if ($this->tipoDois) {
-                $resultado[] = $tipoDois;
+                $this->linhas[] = $tipoDois;
             }
             if ($this->tipoTres) {
-                $resultado[] = $tipoTres;
+                $this->linhas[] = $tipoTres;
             }
             if ($this->tipoQuatro) {
-                $resultado[] = $tipoQuatro;
+                $this->linhas[] = $tipoQuatro;
             }
             if ($this->tipoCinco) {
-                $resultado[] = $tipoCinco;
+                $this->linhas[] = $tipoCinco;
             }
             if ($this->tipoSeis) {
-                $resultado[] = $tipoSeis;
+                $this->linhas[] = $tipoSeis;
             }
             if ($this->tipoSete) {
-                $resultado[] = $tipoSete;
+                $this->linhas[] = $tipoSete;
             }
         }
 
-        $modeloTraillerArqDefault = $instancia->traillerArquivoDefault();
-        $modeloTraillerArqValidacao = $instancia->traillerArquivoValidacao();
-        $modeloTraillerArqDinamico = $instancia->traillerArquivoDinamico();
-        $modeloTraillerArquivo = $instancia->traillerArquivo();
+        $modeloTraillerArqDefault = $iLayout->traillerArquivoDefault();
+        $modeloTraillerArqValidacao = $iLayout->traillerArquivoValidacao();
+        $modeloTraillerArqDinamico = $iLayout->traillerArquivoDinamico();
+        $modeloTraillerArquivo = $iLayout->traillerArquivo();
         $traillerArquivo = [];
         
         $this->traillerArquivo = $validacaoCnab->setDefault($modeloTraillerArquivo, $this->traillerArquivo, $modeloTraillerArqDefault, $modeloTraillerArqDinamico, 'traillerArquivo');
 
         foreach ($modeloTraillerArquivo as $key => $especificacoes) {
             
-            $valor = $instanciaPadrao->tratarDados($especificacoes, $this->traillerArquivo[$key], $key, $config, 'traillerArquivo');
+            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->traillerArquivo[$key], $key, $config, 'traillerArquivo');
 
             if (isset($modeloTraillerArqValidacao[$key])) {
                 $validacaoCnab->{$modeloTraillerArqValidacao[$key]}($valor, $key, $this->traillerArquivo, 'traillerArquivo');
@@ -328,10 +346,19 @@ class Cnab400
             $traillerArquivo[] = $valor;
         }
 
-        $resultado[] = $traillerArquivo;
-        $validacaoCnab->validaTamanhoArray($resultado);
+        $this->linhas[] = $traillerArquivo;
+        $validacaoCnab->validaTamanhoArray($this->linhas);
+        
+        return $this->linhas;
+    }
 
-        return $instanciaPadrao->gravar($resultado, $caminhoArquivo, $nomeArquivo);
+    public function gerar($layout, $caminhoArquivo, $nomeArquivo, $config = [])
+    {
+        $arquivoPadrao = new ArquivoPadrao();
+
+        $linhas = $this->processar($layout, $config);
+
+        return $arquivoPadrao->gravar($linhas, $caminhoArquivo, $nomeArquivo);
     }
 
 }
