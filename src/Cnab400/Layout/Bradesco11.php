@@ -38,9 +38,9 @@ class Bradesco11
             8 => 237,
             9 => "Bradesco",
             10 => date("dmy"),
-            11 => "Branco",
+            11 => "",
             12 => "MX",
-            14 => "Branco",
+            14 => "",
             15 => 1
         ];
     }
@@ -48,7 +48,7 @@ class Bradesco11
     public function headerArquivoValidacao()
     {
         return [
-            10 => "validaData"
+            /* 10 => "validaData" */
         ];
     }
 
@@ -112,22 +112,35 @@ class Bradesco11
     {
         return [
             1 => 9,
-            2 => 40021,
-            3 => "2",
-            4 => 6,
-            5 => 5,
-            6 => "2",
-            7 => "",
-            17 => "Brancos",
+            2 => 0,
+            3 => 0,
+            4 => 0,
+            5 => 0,
+            6 => 0,
+            9 => 237,
+            10 => 0,
+            11 => 0,
+            14 => 0,
+            15 => 2,
+            16 => "N",
+            17 => "",
             18 => "R",
+            19 => 2,
             20 => "",
-            25 => 000,
-            26 => 000,
+            21 => 0,
+            25 => 0,
+            26 => 0,
+            27 => 1,
             28 => "N",
-            29 => date("dmy"),
+            30 => 0,
+            31 => 0,
+            32 => 0,
+            33 => 0,
+            34 => 0,
+            35 => 0,
+            36 => 0,
             41 => "",
             44 => "",
-            45 => 1,
         ];
     }
 
@@ -374,11 +387,9 @@ class Bradesco11
         return [];
     }
 
-    public function traillerArquivoDinamico($sequencial)
+    public function traillerArquivoDinamico()
     {
-        return [
-            3 => $sequencial
-        ];
+        return [];
     }
 
     public function segmentosObrigatorios()
