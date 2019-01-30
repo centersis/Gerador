@@ -41,6 +41,17 @@ class Agz
         return $this->linhas;
     }
 
+    public function getLinhasAgrupadas()
+    {
+        $agrupado = [];
+
+        foreach ($this->linhas as $dados) {
+            $agrupado = implode('', $dados);
+        }
+
+        return $agrupado;
+    }
+
     public function processar($layout, $config = [])
     {
         $caminho = 'Agz\\Layout\\' . $layout;
