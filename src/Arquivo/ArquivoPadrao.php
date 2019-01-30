@@ -82,7 +82,7 @@ class ArquivoPadrao
         if (!empty($numero)) {
             //Verifica de o número ja esta formatado
             if (is_numeric($numero)) {
-                return (float) $numero;
+                return $this->toFloat($numero);
             }
 
             $valorA = str_replace('.', '', $numero);
