@@ -93,7 +93,7 @@ class Agz
                 }
 
                 if($key == 6){
-                    $somaValor +=  $instanciaPadrao->toFloat($segmento[$key]);
+                    $somaValor +=  $instanciaPadrao->toFloat($valor);
                 }
                 
                 $segmentoG[] = $valor;

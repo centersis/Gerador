@@ -60,8 +60,10 @@ class ArquivoPadrao
 
     public function toFloat($valor)
     {
-        $inicio = substr($valor, 0, -2);
-        $fim = substr($valor, -2);
+        $valorLimpo = $this->removePontuacao($valor);
+        
+        $inicio = substr($valorLimpo, 0, -2);
+        $fim = substr($valorLimpo, -2);
 
         return (float) ($inicio . '.' . $fim);
     }
