@@ -63,7 +63,7 @@ class ArquivoPadrao
         $inicio = substr($valor, 0, -2);
         $fim = substr($valor, -2);
 
-        return $this->floatBanco($inicio . '.' . $fim);
+        return (float) ($inicio . '.' . $fim);
     }
 
     public function removePontuacao($texto)
