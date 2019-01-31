@@ -38,18 +38,20 @@ class Sicoob081
     public function headerArquivoDefault()
     {
         return [
-            2 => 0000,
+            1 => 756,
+            2 => 0,
             3 => 0,
             4 => "",
+            5 => 2,
             7 => "",
             9 => " ",
-            12 => "",
+            12 => "0",
             15 => "",
             16 => 1,
             17 => date('dmY'),
             18 => date('his'),
             20 => 81,
-            21 => 00000,
+            21 => 0,
             22 => "",
             23 => "",
             24 => "",
@@ -59,9 +61,9 @@ class Sicoob081
     public function headerArquivoValidacao()
     {
         return [
-            5 => "validaOpcao1e2",
-            6 => "validaCpfeCnpj",
-            17 => "validaData",
+            /* 5 => "validaOpcao1e2",
+              6 => "validaCpfeCnpj",
+              17 => "validaData", */
         ];
     }
 
@@ -99,31 +101,24 @@ class Sicoob081
         ];
     }
 
-    public function headerLoteDefault($array)
+    public function headerLoteDefault()
     {
         return [
-            1 => $array[0],
-            2 => 0001,
+            1 => 756,
+            2 => 1,
             3 => 1,
             4 => "R",
-            5 => 01,
+            5 => 1,
             6 => "",
             7 => "040",
             8 => "",
-            9 => $array[4],
-            10 => $array[5],
+            9 => 2,
             11 => "",
-            12 => $array[7],
-            13 => $array[8],
-            14 => $array[9],
-            15 => $array[10],
             16 => "",
-            17 => $array[12],
             18 => "",
             19 => "",
-            20 => 0,
             21 => date('dmY'),
-            22 => 00000000,
+            22 => 0,
             23 => "",
         ];
     }
@@ -131,9 +126,9 @@ class Sicoob081
     public function headerLoteValidacao()
     {
         return [
-            9 => "validaOpcao1e2",
-            10 => "validaCpfeCnpj",
-            21 => "validaData",
+            /* 9 => "validaOpcao1e2",
+              10 => "validaCpfeCnpj",
+              21 => "validaData", */
         ];
     }
 
@@ -165,7 +160,7 @@ class Sicoob081
             18 => [1, 'texto'],
             19 => [15, 'texto'],
             20 => [8, 'num'],
-            21 => [15, 'num'],
+            21 => [15, 'valor'],
             22 => [5, 'num'],
             23 => [1, 'texto'],
             24 => [2, 'num'],
@@ -173,12 +168,12 @@ class Sicoob081
             26 => [8, 'num'],
             27 => [1, 'num'],
             28 => [8, 'num'],
-            29 => [15, 'num'],
+            29 => [15, 'valor'],
             30 => [1, 'num'],
             31 => [8, 'num'],
-            32 => [15, 'num'],
-            33 => [15, 'num'],
-            34 => [15, 'num'],
+            32 => [15, 'valor'],
+            33 => [15, 'valor'],
+            34 => [15, 'valor'],
             35 => [25, 'texto'],
             36 => [1, 'num'],
             37 => [2, 'num'],
@@ -190,32 +185,39 @@ class Sicoob081
         ];
     }
 
-    public function segmentoPDefault($array)
+    public function segmentoPDefault()
     {
         return [
-            1 => $array[0],
-            2 => 0001,
+            1 => 756,
+            2 => 1,
             3 => 3,
             5 => "P",
             6 => "",
-            8 => $array[7],
-            9 => $array[8],
-            10 => $array[9],
-            11 => $array[10],
+            7 => 1,
             12 => "",
             15 => 0,
             16 => "",
-            22 => 00000,
+            17 => 2,
+            18 => 2,
+            22 => 0,
             23 => "",
+            24 => 02,
+            25 => 'A',
             26 => date('dmY'),
+            27 => 0,
+            28 => 0,
+            29 => 0,
+            30 => 0,
             31 => 0,
             32 => 0,
             33 => 0,
             34 => 0,
+            36 => 3,
             37 => 0,
             38 => 0,
             39 => "",
-            41 => 0000000000,
+            40 => '09',
+            41 => 0,
             42 => "",
         ];
     }
@@ -223,22 +225,22 @@ class Sicoob081
     public function segmentoPValidacao()
     {
         return [
-            7 => "validaMovimentoRemessa",
-            17 => "validaOpcao1e2",
-            18 => "validaOpcao1e2",
-            24 => "validaEspecieTitulo",
-            25 => "validaIdTitulo",
-            26 => "validaData",
-            28 => "validaData",
-            28 => "validaJuroseDescData",
-            29 => "validaJurosDescValor",
-            27 => "validaCodigo",
-            //31 => "validaData",
-            //31 => "validaJuroseDescData",
-            32 => "validaJurosDescValor",
-            36 => "validaCodigoProtesto",
-            36 => "validaCodigoProteMovi",
-            40 => "codigoMoeda",
+            /* 7 => "validaMovimentoRemessa",
+              17 => "validaOpcao1e2",
+              18 => "validaOpcao1e2",
+              24 => "validaEspecieTitulo",
+              25 => "validaIdTitulo",
+              26 => "validaData",
+              28 => "validaData",
+              28 => "validaJuroseDescData",
+              29 => "validaJurosDescValor",
+              27 => "validaCodigo",
+              //31 => "validaData",
+              //31 => "validaJuroseDescData",
+              32 => "validaJurosDescValor",
+              36 => "validaCodigoProtesto",
+              36 => "validaCodigoProteMovi",
+              40 => "codigoMoeda", */
         ];
     }
 
@@ -278,13 +280,14 @@ class Sicoob081
     public function segmentoQDefault($array)
     {
         return [
-            1 => $array[0],
-            2 => 0001,
+            1 => 756,
+            2 => 1,
             3 => 3,
             5 => "Q",
             6 => "",
-            17 => $array[4],
-            18 => $array[5],
+            7 => 1,
+            17 => 2,
+            20 => 0,
             21 => "",
             22 => "",
         ];
@@ -293,14 +296,14 @@ class Sicoob081
     public function segmentoQValidacao()
     {
         return [
-            7 => "validaMovimentoRemessa",
-            8 => "validaOpcao1e2",
-            9 => "validaCpfeCnpj",
-            13 => "validaCep",
-            14 => "validaSufixoCep",
-            16 => "validaUf",
-            17 => "validaOpcao1e2",
-            18 => "validaCpfeCnpj",
+            /* 7 => "validaMovimentoRemessa",
+              8 => "validaOpcao1e2",
+              9 => "validaCpfeCnpj",
+              13 => "validaCep",
+              14 => "validaSufixoCep",
+              16 => "validaUf",
+              17 => "validaOpcao1e2",
+              18 => "validaCpfeCnpj", */
         ];
     }
 
@@ -321,13 +324,13 @@ class Sicoob081
             7 => [2, 'num'],
             8 => [1, 'num'],
             9 => [8, 'num'],
-            10 => [15, 'num'],
+            10 => [15, 'valor'],
             11 => [1, 'num'],
             12 => [8, 'num'],
-            13 => [15, 'num'],
+            13 => [15, 'valor'],
             14 => [1, 'texto'],
             15 => [8, 'num'],
-            16 => [15, 'num'],
+            16 => [15, 'valor'],
             17 => [10, 'texto'],
             18 => [40, 'texto'],
             19 => [40, 'texto'],
@@ -374,19 +377,19 @@ class Sicoob081
     public function segmentoRValidacao()
     {
         return [
-            7 => "validaMovimentoRemessa",
-            8 => "validaCodigo",
-            //9 => "validaData",
-            //9 => "validaJuroseDescData",
-            10 => "validaJurosDescValor",
-            11 => "validaCodigo",
-            12 => "validaData",
-            12 => "validaJuroseDescData",
-            13 => "validaJurosDescValor",
-            14 => "validaCodigo",
-            //15 => "validaData",
-            //15 => "validaJuroseDescData",
-            16 => "validaJurosDescValor",
+            /* 7 => "validaMovimentoRemessa",
+              8 => "validaCodigo",
+              //9 => "validaData",
+              //9 => "validaJuroseDescData",
+              10 => "validaJurosDescValor",
+              11 => "validaCodigo",
+              12 => "validaData",
+              12 => "validaJuroseDescData",
+              13 => "validaJurosDescValor",
+              14 => "validaCodigo",
+              //15 => "validaData",
+              //15 => "validaJuroseDescData",
+              16 => "validaJurosDescValor", */
         ];
     }
 
@@ -404,13 +407,13 @@ class Sicoob081
             4 => [9, 'texto'],
             5 => [6, 'num'],
             6 => [6, 'num'],
-            7 => [17, 'num'],
+            7 => [17, 'valor'],
             8 => [6, 'num'],
-            9 => [17, 'num'],
+            9 => [17, 'valor'],
             10 => [6, 'num'],
-            11 => [17, 'num'],
+            11 => [17, 'valor'],
             12 => [6, 'texto'],
-            13 => [17, 'num'],
+            13 => [17, 'valor'],
             14 => [8, 'texto'],
             15 => [117, 'texto'],
         ];
@@ -419,8 +422,8 @@ class Sicoob081
     public function traillerLoteDefault($array)
     {
         return [
-            1 => $array[0],
-            2 => 0001,
+            1 => 756,
+            2 => 1,
             3 => 5,
             4 => "",
             8 => 0,
@@ -461,10 +464,10 @@ class Sicoob081
         ];
     }
 
-    public function traillerArquivoDefault($array)
+    public function traillerArquivoDefault()
     {
         return [
-            1 => $array[0],
+            1 => 756,
             2 => 9999,
             3 => 9,
             4 => "",
