@@ -277,7 +277,7 @@ class Sicoob081
         ];
     }
 
-    public function segmentoQDefault($array)
+    public function segmentoQDefault()
     {
         return [
             1 => 756,
@@ -347,7 +347,7 @@ class Sicoob081
         ];
     }
 
-    public function segmentoRDefault($array)
+    public function segmentoRDefault()
     {
         return [
             1 => $array[0],
@@ -419,7 +419,7 @@ class Sicoob081
         ];
     }
 
-    public function traillerLoteDefault($array)
+    public function traillerLoteDefault()
     {
         return [
             1 => 756,
