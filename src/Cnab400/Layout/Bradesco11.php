@@ -110,7 +110,7 @@ class Bradesco11
     public function tipoUmDefault()
     {
         return [
-            1 => 9,
+            1 => 1,
             2 => 0,
             3 => 0,
             4 => 0,
