@@ -37,26 +37,4 @@ class ValidacaoAgz extends ArquivoValidacao
             }
         }
     }
-
-    public function validaData($data, $posicao, $linha, $identifica)
-    {
-        $pontos = ["\\", "/", "-", "."];
-        $dataFormatada = str_replace($pontos, "", $data);
-
-        if (strlen($dataFormatada) != 8) {
-            throw new \Exception("Posição " . $posicao . " inválida");
-        } else {
-            $ano = substr($dataFormatada, 0, 4);
-            $mes = substr($dataFormatada, 4, 2);
-            $dia = substr($dataFormatada, 6, 2);
-            if (strlen($ano) < 4) {
-                throw new \Exception("Posição " . $posicao . " inválida");
-            } else {
-                if (checkdate($mes, $dia, $ano) === false) {
-                    throw new \Exception("Posição " . $posicao . " inválida");
-                }
-            }
-        }
-    }
-
 }

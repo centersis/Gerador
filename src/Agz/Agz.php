@@ -3,6 +3,7 @@
 namespace Agz;
 
 use Agz\ValidacaoAgz;
+use Arquivo\Util;
 use Arquivo\ArquivoPadrao;
 
 class Agz
@@ -58,6 +59,7 @@ class Agz
 
         $iLayout = new $caminho;
         $validacaoAgz = new ValidacaoAgz();
+        $util = new Util();
         $arquivoPadrao = new ArquivoPadrao();
 
         $this->linhas = [];
@@ -111,7 +113,7 @@ class Agz
                 }
 
                 if ($key == 6) {
-                    $somaValor += $arquivoPadrao->toFloat($valor);
+                    $somaValor += $util->toFloat($valor);
                 }
 
                 $segmentoG[] = $valor;
@@ -119,8 +121,8 @@ class Agz
 
             $this->linhas[] = $segmentoG;
             $contaLinhas++;
-        }
-
+        }        
+        
         $modeloZ = $iLayout->segmentoZ();
         $modeloZDefault = $iLayout->segmentoZDefault();
         $modeloZValidacao = $iLayout->segmentoZValidacao();

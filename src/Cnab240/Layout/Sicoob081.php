@@ -13,7 +13,7 @@ class Sicoob081
             3 => [1, 'num'],
             4 => [9, 'texto'],
             5 => [1, 'num'],
-            6 => [14, 'num'],
+            6 => [14, 'doc'],
             7 => [20, 'texto'],
             8 => [5, 'num'],
             9 => [1, 'num'],
@@ -24,7 +24,7 @@ class Sicoob081
             14 => [30, 'texto'],
             15 => [10, 'texto'],
             16 => [1, 'num'],
-            17 => [8, 'num'],
+            17 => [8, 'data'],
             18 => [6, 'num'],
             19 => [6, 'num'],
             20 => [3, 'num'],
@@ -48,8 +48,8 @@ class Sicoob081
             12 => "0",
             15 => "",
             16 => 1,
-            17 => date('dmY'),
-            18 => date('his'),
+            17 => date('Y-m-d'),
+            18 => date('h:i:s'),
             20 => 81,
             21 => 0,
             22 => "",
@@ -61,15 +61,17 @@ class Sicoob081
     public function headerArquivoValidacao()
     {
         return [
-            /* 5 => "validaOpcao1e2",
-              6 => "validaCpfeCnpj",
-              17 => "validaData", */
+            5 => "validaOpcao1e2",
+            6 => "validaCpfeCnpj",
+            17 => "validaData",
+            18 => "validaHora",
         ];
     }
 
     public function headerArquivoDinamico()
     {
-        return [];
+        return [
+        ];
     }
 
     public function headerLote()
@@ -101,10 +103,10 @@ class Sicoob081
         ];
     }
 
-    public function headerLoteDefault()
+    public function headerLoteDefault($headerArquivo)
     {
         return [
-            1 => 756,
+            1 => $headerArquivo[1],
             2 => 1,
             3 => 1,
             4 => "R",
@@ -112,8 +114,12 @@ class Sicoob081
             6 => "",
             7 => "040",
             8 => "",
-            9 => 2,
-            11 => "",
+            9 => $headerArquivo[5],
+            10=>$headerArquivo[6],
+            11 => $headerArquivo[8],
+            12 => $headerArquivo[9],
+            13 => $headerArquivo[10],
+            14 => $headerArquivo[11],
             16 => "",
             18 => "",
             19 => "",

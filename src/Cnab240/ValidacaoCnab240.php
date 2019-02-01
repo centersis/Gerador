@@ -7,6 +7,23 @@ use \Arquivo\ArquivoValidacao;
 class ValidacaoCnab240 extends ArquivoValidacao
 {
 
+    public function validaCpfeCnpj($valor, $posicao, $linha, $identifica)
+    {
+        $valorLimpo = str_replace(['.', '/', '-'], '', $valor);
+
+        if (strlen($valorLimpo) >= 14 and $linha[5] == 2) {
+            $this->validaCnpj($valor, $posicao, $linha, $identifica);
+            return true;
+        }
+
+        if (strlen($valorLimpo) == 11 and $linha[5] == 1) {
+            $this->validaCpf($valor, $posicao, $linha, $identifica);
+            return true;
+        }
+
+        throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
+    }
+
     public function validaMovimentoRemessa($opcao, $posicao, $linha, $identifica)
     {
         $opcoes = ["01", "02", "06", "09", "10", "11", "31"];
@@ -89,27 +106,6 @@ class ValidacaoCnab240 extends ArquivoValidacao
             }
             if (($contagem == 240) === false) {
                 throw new \Exception("O segmento $keySegmento não possui 240 caracteres");
-            }
-        }
-    }
-
-    public function validaData($data, $posicao, $linha, $identifica)
-    {
-        $pontos = ["\\", "/", "-", "."];
-        $dataFormatada = str_replace($pontos, "", $data);
-
-        if (strlen($dataFormatada) != 8) {
-            throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
-        } else {
-            $dia = substr($dataFormatada, 0, 2);
-            $mes = substr($dataFormatada, 2, 2);
-            $ano = substr($dataFormatada, 4, 4);
-            if (strlen($ano) < 4) {
-                throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
-            } else {
-                if (checkdate($mes, $dia, $ano) === false) {
-                    throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
-                }
             }
         }
     }

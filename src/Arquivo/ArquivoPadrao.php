@@ -12,16 +12,16 @@ class ArquivoPadrao
         $caminhoAbsoluto = $this->tratarCaminho($caminho, $nomeArquivo);
         $this->verificaPermissao($caminhoAbsoluto);
 
-        if(file_exists($caminhoAbsoluto)){
-            if(!is_readable($caminhoAbsoluto)){
+        if (file_exists($caminhoAbsoluto)) {
+            if (!is_readable($caminhoAbsoluto)) {
                 throw new \Exception("O arquivo já existe e você não tem permissão para leitura!");
             }
-            
-            if(!is_writable($caminhoAbsoluto)){
+
+            if (!is_writable($caminhoAbsoluto)) {
                 throw new \Exception("O arquivo já existe e você não tem permissão para escrita!");
             }
         }
-        
+
         $arquivoAberto = fopen($caminhoAbsoluto, "w+");
 
         foreach ($resultado as $value) {
@@ -42,67 +42,47 @@ class ArquivoPadrao
         $util = new Util();
         $arquivoValidacao = new ArquivoValidacao();
 
-        if ($especificacoes[1] == 'num') {
 
-            $valorFormatado = $util->formataNumDecimais($valor);
-            $arquivoValidacao->validaTamanhoNum($valorFormatado, $especificacoes[0], $posicao, $identifica);
-            $valor = $util->adicionarZerosEsq($valorFormatado, $especificacoes[0]);
-        } else if ($especificacoes[1] == 'valor') {
+        switch ($especificacoes[1]) {
 
-            $valor = $util->adicionarZerosEsq($this->removePontuacao($this->floatCliente($valor)), $especificacoes[0]);
+            case 'doc':
+                $valorFormatado = $util->somenteNumeros($valor);
+                $arquivoValidacao->validaTamanhoNum($valorFormatado, $especificacoes[0], $posicao, $identifica);
+                $valor = $util->adicionarZerosEsq($valorFormatado, $especificacoes[0]);
+                break;
 
-            $arquivoValidacao->validaTamanhoNum($valor, $especificacoes[0], $posicao, $identifica);
-        } else {
+            case 'num':
+                $valorFormatado = $util->somenteNumeros($valor);
+                $arquivoValidacao->validaTamanhoNum($valorFormatado, $especificacoes[0], $posicao, $identifica);
+                $valor = $util->adicionarZerosEsq($valorFormatado, $especificacoes[0]);
+                break;
 
-            $case = null;
+            case 'valor':
+                $valor = $util->adicionarZerosEsq($util->trataValor($valor), $especificacoes[0]);
 
-            if (isset($config['case'])) {
-                $case = strtolower($config['case']);
-            }
+                $arquivoValidacao->validaTamanhoNum($valor, $especificacoes[0], $posicao, $identifica);
+                break;
 
-            $valorPreparado = $util->preparaTexto($valor, $case);
+            case 'data':
+                $valor = $util->somenteNumeros($valor);
+                $arquivoValidacao->validaData($valor, $especificacoes[0], $posicao, $identifica);
+                break;
 
-            $valor = $util->adicionarEspacosDir($valorPreparado, $especificacoes[0]);
+            default :
+                $case = null;
+
+                if (isset($config['case'])) {
+                    $case = strtolower($config['case']);
+                }
+
+                $valorPreparado = $util->preparaTexto($valor, $case);
+
+                $valor = $util->adicionarEspacosDir($valorPreparado, $especificacoes[0]);
+                break;
         }
+
 
         return $valor;
-    }
-
-    public function toFloat($valor)
-    {
-        $valorLimpo = $this->removePontuacao($valor);
-        
-        $inicio = substr($valorLimpo, 0, -2);
-        $fim = substr($valorLimpo, -2);
-
-        return (float) ($inicio . '.' . $fim);
-    }
-
-    public function removePontuacao($texto)
-    {
-        return str_replace(['.', '/', '-', ','], '', $texto);
-    }
-
-    public function floatCliente($numero, $decimal = 2)
-    {
-        $float = $this->floatBanco($numero);
-        return number_format($float, $decimal, ',', '.');
-    }
-
-    public function floatBanco($numero)
-    {
-        if (!empty($numero)) {
-            //Verifica de o número ja esta formatado
-            if (is_numeric($numero)) {
-                return (float) $numero;
-            }
-
-            $valorA = str_replace('.', '', $numero);
-            $valorB = str_replace(',', '.', $valorA);
-            return (float) $valorB;
-        }
-
-        return 0;
     }
 
     private function tratarCaminho($caminho, $nomeArquivo)

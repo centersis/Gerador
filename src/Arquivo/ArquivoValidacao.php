@@ -7,57 +7,134 @@ class ArquivoValidacao
 
     public function validaCpf($cpf, $posicao, $linha, $identifica)
     {
-        if (strlen($cpf) == 14 || 15) {
-            $cpf = substr($cpf, 3, 11);
+
+        $invalidos = [];
+
+        for ($c = 0; $c < 10; $c++) {
+            $invalidos[] = \str_repeat($c, 11);
         }
 
-        $cpf = preg_replace('/[^0-9]/is', '', $cpf);
-        if (strlen($cpf) != 11) {
+        $cpfLimpo = \str_replace(['.', '-'], '', $cpf);
+
+        if (\strlen($cpfLimpo) <> 11 or \in_array($cpfLimpo, $invalidos) or ! \is_numeric($cpfLimpo)) {
+
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
-        if (preg_match('/(\d)\1{10}/', $cpf)) {
+
+        $dvInformado = \substr($cpfLimpo, 9, 2);
+
+        $digito = [];
+        for ($i = 0; $i <= 8; $i++) {
+            $digito[$i] = \substr($cpfLimpo, $i, 1);
+        }
+
+        $posicao1 = 10;
+        $soma1 = 0;
+
+        for ($i = 0; $i <= 8; $i++) {
+            $soma1 += ($digito[$i] * $posicao1);
+            $posicao1 = $posicao1 - 1;
+        }
+
+        $digito[9] = $soma1 % 11;
+
+        if ($digito[9] < 2) {
+            $digito[9] = 0;
+        } else {
+            $digito[9] = 11 - $digito[9];
+        }
+
+        $posicao2 = 11;
+        $soma2 = 0;
+
+        for ($i = 0; $i <= 9; $i++) {
+            $soma2 += ($digito[$i] * $posicao2);
+            $posicao2 = $posicao2 - 1;
+        }
+
+        $digito[10] = $soma2 % 11;
+
+        if ($digito[10] < 2) {
+            $digito[10] = 0;
+        } else {
+            $digito[10] = 11 - $digito[10];
+        }
+
+        $dv = $digito[9] * 10 + $digito[10];
+
+        if ($dv != $dvInformado) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
-        for ($t = 9; $t < 11; $t++) {
-            for ($d = 0, $c = 0; $c < $t; $c++) {
-                $d += $cpf{$c} * (($t + 1) - $c);
-            }
-            $d = ((10 * $d) % 11) % 10;
-            if ($cpf{$c} != $d) {
-                throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
-            }
-        }
+
+        return true;
     }
 
     public function validaCnpj($cnpj, $posicao, $linha, $identifica)
     {
-        $cnpj = preg_replace('/[^0-9]/', '', (string) $cnpj);
-        if (strlen($cnpj) == 15) {
-            $cnpj = substr($cnpj, 1, 14);
+        $j = 0;
+        $num = [];
+        for ($i = 0; $i < (\strlen($cnpj)); $i++) {
+            if (\is_numeric($cnpj[$i])) {
+                $num[$j] = $cnpj[$i];
+                $j++;
+            }
         }
-        if (strlen($cnpj) != 14) {
-            throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
-        }
-        for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++) {
-            $soma += $cnpj{$i} * $j;
-            $j = ($j == 2) ? 9 : $j - 1;
-        }
-        $resto = $soma % 11;
-        if ($cnpj{12} != ($resto < 2 ? 0 : 11 - $resto)) {
-            throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
-        }
-        for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++) {
-            $soma += $cnpj{$i} * $j;
-            $j = ($j == 2) ? 9 : $j - 1;
-        }
-        $resto = $soma % 11;
-    }
 
-    public function validaCodigoBarra($codigoBarra, $posicao, $linha, $identifica)
-    {
-        if (strlen($codigoBarra) != 44) {
+        if (\count($num) != 14) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
+
+        if (\array_sum($num) == 0) {
+            throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
+        } else {
+            $j = 5;
+            for ($i = 0; $i < 4; $i++) {
+                $multiplica[$i] = $num[$i] * $j;
+                $j--;
+            }
+            $soma = \array_sum($multiplica);
+            $j = 9;
+            for ($i = 4; $i < 12; $i++) {
+                $multiplica[$i] = $num[$i] * $j;
+                $j--;
+            }
+            $soma = \array_sum($multiplica);
+            $resto = $soma % 11;
+            if ($resto < 2) {
+                $dg = 0;
+            } else {
+                $dg = 11 - $resto;
+            }
+
+            if ($dg != $num[12]) {
+                throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
+            }
+        }
+
+        $j = 6;
+        for ($i = 0; $i < 5; $i++) {
+            $multiplica[$i] = $num[$i] * $j;
+            $j--;
+        }
+        $soma = array_sum($multiplica);
+        $j = 9;
+        for ($i = 5; $i < 13; $i++) {
+            $multiplica[$i] = $num[$i] * $j;
+            $j--;
+        }
+        $soma = array_sum($multiplica);
+        $resto = $soma % 11;
+        if ($resto < 2) {
+            $dg = 0;
+        } else {
+            $dg = 11 - $resto;
+        }
+
+        if ($dg != $num[13]) {
+            throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
+        }
+
+        return true;
     }
 
     public function validaIdTitulo($opcao, $posicao, $linha, $identifica)
@@ -70,8 +147,8 @@ class ArquivoValidacao
 
     public function validaTamanho($string, $tamanho, $posicao, $identifica)
     {
-        $string = trim($string);
-        if (strlen($string) != $tamanho) {
+        $stringLimpa = trim($string);
+        if (strlen($stringLimpa) != $tamanho) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
     }
@@ -121,24 +198,7 @@ class ArquivoValidacao
         if (array_search($opcao, $opcoes) === false) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
-    }
-
-    public function validaCpfeCnpj($valor, $posicao, $linha, $identifica)
-    {
-        $valorLimpo = str_replace(['.', '/', '-'], '', $valor);
-
-        if (strlen($valorLimpo) >= 14) {
-            $this->validaCnpj($valor, $posicao, $linha, $identifica);
-            return true;
-        }
-
-        if (strlen($valorLimpo) == 11) {
-            $this->validaCpf($valor, $posicao, $linha, $identifica);
-            return true;
-        }
-
-        throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
-    }
+    }    
 
     public function validaSegmentosObrigatorios($segmento, $tipo, $segObrig)
     {
@@ -233,5 +293,35 @@ class ArquivoValidacao
 
         return $setados;
     }
+
+    public function validaData($data, $posicao, $linha, $identifica)
+    {
+        $y = substr($data, 0, 4);
+        $m = substr($data, 4, 2);
+        $d = substr($data, 6, 2);
+
+        if (strlen($y) != 4) {
+            throw new \Exception($identifica . " - Posição " . $posicao . " não possui uma data válida!");
+        }
+
+        if (!checkdate((int) $m, (int) $d, (int) $y)) {
+            throw new \Exception($identifica . " - Posição " . $posicao . " não possui uma data válida!");
+        }
+    }
+
+    public function validaHora($hora, $posicao, $linha, $identifica)
+    {
+        $h = substr($hora, 0, 2);
+        $m = substr($hora, 2, 2);
+        $s = substr($hora, 4, 2);
+
+        if ($h > 23) {
+            throw new \Exception($identifica . " - Posição " . $posicao . " não possui uma data válida!");
+        }
+
+        if ($m > 59 or $s > 59) {
+            throw new \Exception($identifica . " - Posição " . $posicao . " não possui uma data válida!");
+        }
+    }    
 
 }

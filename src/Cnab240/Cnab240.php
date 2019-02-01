@@ -94,10 +94,12 @@ class Cnab240
         $quantTitulos = 0;
         $headerArquivo = [];
 
+        $sequencial = 1;
+        
         $segmentosObrigatorios = $iLayout->segmentosObrigatorios();
         $modeloHeaderArqDefault = $iLayout->headerArquivoDefault();
         $modeloHeaderArqValidacao = $iLayout->headerArquivoValidacao();
-        $modeloHeaderArqDinamico = $iLayout->headerArquivoDinamico();
+        $modeloHeaderArqDinamico = $iLayout->headerArquivoDinamico($sequencial);
         $modeloHeaderArquivo = $iLayout->headerArquivo();
         $validacaoCnab->validaSegmentosObrigatorios($this->headerArquivo, 0, $segmentosObrigatorios);
 
@@ -116,9 +118,11 @@ class Cnab240
 
         $this->linhas[] = $headerArquivo;
 
+        $sequencial++;
+        
         $modeloHeaderLoteDefault = $iLayout->headerloteDefault($headerArquivo);
         $modeloHeaderLoteValidacao = $iLayout->headerLoteValidacao();
-        $modeloHeaderLoteDinamico = $iLayout->headerLoteDinamico();
+        $modeloHeaderLoteDinamico = $iLayout->headerLoteDinamico($sequencial);
         $modeloHeaderLote = $iLayout->headerLote();
 
         $headerLote = [];

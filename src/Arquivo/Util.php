@@ -5,6 +5,56 @@ namespace Arquivo;
 class Util
 {
 
+    public function somenteNumeros($valor)
+    {
+        return preg_replace("/[^0-9]/", "", $valor);
+    }
+
+    public function trataValor($valor)
+    {
+        $ponto = strpos($valor, '.');
+        $virgula = strpos($valor, ',');
+
+
+        if ($ponto or $virgula) {
+            $valor = $this->floatCliente($valor);
+        }
+
+        return $this->somenteNumeros($valor);
+    }
+
+    public function toFloat($valor)
+    {
+        $valorLimpo = $this->somenteNumeros($valor);
+
+        $inicio = substr($valorLimpo, 0, -2);
+        $fim = substr($valorLimpo, -2);
+
+        return (float) ($inicio . '.' . $fim);
+    }
+
+    public function floatCliente($numero, $decimal = 2)
+    {
+        $float = $this->floatBanco($numero);
+        return number_format($float, $decimal, ',', '.');
+    }
+
+    public function floatBanco($numero)
+    {
+        if (!empty($numero)) {
+            //Verifica de o número ja esta formatado
+            if (is_numeric($numero)) {
+                return (float) $numero;
+            }
+
+            $valorA = str_replace('.', '', $numero);
+            $valorB = str_replace(',', '.', $valorA);
+            return (float) $valorB;
+        }
+
+        return 0;
+    }
+
     public function preparaTexto($texto, $case)
     {
         if (is_array($texto)) {
@@ -73,20 +123,4 @@ class Util
             return substr($str, 0, $tamanho);
         }
     }
-
-    public function formataNumDecimais($str)
-    {
-        
-        if (is_array($str)) {
-            throw new \Exception("Texto não deve ser um array!");
-        }
-        
-        $carac = array(
-            '.' => '',
-            ',' => '',
-        );        
-        
-        return strtr($str, $carac);
-    }
-
 }

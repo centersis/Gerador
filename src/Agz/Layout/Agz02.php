@@ -14,7 +14,7 @@ class Agz02
             4 => [20, 'texto'],
             5 => [3, 'num'],
             6 => [20, 'texto'],
-            7 => [8, 'num'],
+            7 => [8, 'data'],
             8 => [6, 'num'],
             9 => [2, 'num'],
             10 => [69, 'texto'],
@@ -25,7 +25,7 @@ class Agz02
     {
         return [
             1 => 'A',
-            7 => date('Ymd'),
+            7 => date('Y-m-d'),
             9 => 04,
             10 => "",
         ];
@@ -48,11 +48,11 @@ class Agz02
         return [
             1 => [1, 'texto'],
             2 => [20, 'texto'],
-            3 => [8, 'texto'],
-            4 => [8, 'texto'],
+            3 => [8, 'data'],
+            4 => [8, 'data'],
             5 => [44, 'texto'],
-            6 => [12, 'num'],
-            7 => [7, 'num'],
+            6 => [12, 'valor'],
+            7 => [7, 'valor'],
             8 => [8, 'num'],
             9 => [8, 'texto'],
             10 => [1, 'num'],
@@ -70,11 +70,12 @@ class Agz02
             13 => "",
         ];
     }
-    
+
     public function segmentoGValidacao()
     {
         return [
-            5 => "validaCodigoBarra",
+            3 => "validaData",
+            4 => "validaData",
             10 => "validaFormaArrecadacao",
             12 => "validaFormaPagamento"
         ];
@@ -90,7 +91,7 @@ class Agz02
         return [
             1 => [1, 'texto'],
             2 => [6, 'num'],
-            3 => [17, 'num'],
+            3 => [17, 'valor'],
             4 => [126, 'texto'],
         ];
     }

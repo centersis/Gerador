@@ -1,4 +1,5 @@
 <?php
+
 //Apenas um teste
 function my_autoloader($class)
 {
@@ -111,13 +112,23 @@ $headerArquivo = [1 => 756,
 ];
 $instanciaCnab240->setHeaderArquivo($headerArquivo);
 $headerLote = [
-    20 => 49,
+    10 => 37455649000107,
+    12 => 4425, //Prefixo da cooperativa - Agencia
+    13 => 3, //Dígito verificador da agencia
+    14 => 2758, //Número da Conta Corrente
+    15 => 8, //Dígito da conta corrente
+    17 => 'Centersis', //Nome da Empresa
+    20 => 1, //Número da remessa
 ];
 $instanciaCnab240->setHeaderLote($headerLote);
 
 $segmentoP1 = [
     4 => 00001,
     7 => 1,
+    8 => 1,
+    9 => 9,
+    10 => 10,
+    11 => 11,
     13 => "000002132001014",
     14 => 1,
     17 => 2,
@@ -149,6 +160,7 @@ $segmentoQ1 = [
     14 => "030",
     15 => "Manaus",
     16 => "AM",
+    18 => '0',
     19 => "CENTERSIS TECNOLOGIA DA INFORMACAO LTDA",
     20 => 000,
     21 => "",
@@ -171,7 +183,7 @@ $segmentoR1 = [
     18 => "APOS VENCIMENTO COBRAR MULTA DE 2% + JUROS",
     19 => "",
 ];
-$instanciaCnab240->setSegmentoR($segmentoR1);
+//$instanciaCnab240->setSegmentoR($segmentoR1);
 
 $traillerLote = [
     5 => 5,
@@ -440,9 +452,9 @@ $instanciaCnab400Bra->setTraillerArquivo($trailler);
 try {
 
     $instanciaAgz->gerar('Agz02', 'Storage', 'arquivoAgz02.txt', ['case' => 'upper']);
-    $instanciaCnab240->gerar("Sicoob081", 'Storage', "arquivoSicoob081.txt", ['case' => 'upper']);
-    $instanciaCnab400Itau->gerar("Itau", 'Storage', "arquivoItau.txt", ['case' => 'upper']);
-    $instanciaCnab400Bra->gerar("Bradesco11",'Storage', "arquivoBradesco.txt");
+    //$instanciaCnab240->gerar("Sicoob081", 'Storage', "arquivoSicoob081.txt", ['case' => 'upper']);
+    //$instanciaCnab400Itau->gerar("Itau", 'Storage', "arquivoItau.txt", ['case' => 'upper']);
+    //$instanciaCnab400Bra->gerar("Bradesco11", 'Storage', "arquivoBradesco.txt");
 
     echo "Arquivo Gerado " . microtime();
 } catch (\Exception $ex) {

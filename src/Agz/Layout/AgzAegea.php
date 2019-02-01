@@ -14,7 +14,7 @@ class AgzAegea
             4 => [20, 'texto'],
             5 => [3, 'num'],
             6 => [20, 'texto'],
-            7 => [8, 'num'],
+            7 => [8, 'data'],
             8 => [6, 'num'],
             9 => [2, 'num'],
             10 => [69, 'texto'],
@@ -25,7 +25,7 @@ class AgzAegea
     {
         return [
             1 => 'A',
-            7 => date('Ymd'),
+            7 => date('Y-m-d'),
             10 => "",
         ];
     }
@@ -33,6 +33,7 @@ class AgzAegea
     public function segmentoAValidacao()
     {
         return [
+            7 => 'validaData'
         ];
     }
 
@@ -46,8 +47,8 @@ class AgzAegea
         return [
             1 => [1, 'texto'],
             2 => [20, 'texto'],
-            3 => [8, 'texto'],
-            4 => [8, 'texto'],
+            3 => [8, 'data'],
+            4 => [8, 'data'],
             5 => [44, 'texto'],
             6 => [12, 'valor'],
             7 => [7, 'valor'],
@@ -68,6 +69,8 @@ class AgzAegea
     public function segmentoGValidacao()
     {
         return [
+            3 => 'validaData',
+            4 => 'validaData',
         ];
     }
 
