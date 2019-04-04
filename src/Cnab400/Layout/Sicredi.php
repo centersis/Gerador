@@ -140,7 +140,7 @@ class Sicredi
             27 => '',
             28 => "A",
             29 => "S",
-            30 => date('Ymd'),
+            30 => date('dmy'),
             31 => 0,
             32 => 0,
             33 => 0,
@@ -153,6 +153,8 @@ class Sicredi
             44 => 0,
             45 => '',
             47 => 0,
+            48 => '',
+            49 => '',
         ];
     }
 
@@ -291,7 +293,7 @@ class Sicredi
     public function segmentosObrigatorios()
     {
         return [
-            0, 1, 6, 9,
+            0, 1, 9,
         ];
     }
 
