@@ -35,7 +35,7 @@ class Sicredi
             3 => "REMESSA",
             4 => 01,
             5 => "COBRANCA",
-            9 => "",
+            8 => "",
             9 => "748",
             10 => 'SICREDI',
             11 => date("Ymd"),
