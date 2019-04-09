@@ -80,14 +80,19 @@ class ArquivoPadrao
                 break;
 
             case 'data-Ymd': case 'data-ymd': case 'data-dmY': case 'data-dmy':
-                
-                $valorCru = $util->somenteNumeros($valor);
-                
-                $arquivoValidacao->validaData($valorCru, $posicao, $especificacoes[0], $identifica);
 
-                $partes = explode('-', $especificacoes[1]);
+                if (empty($valor)) {
+                    $valor = $util->adicionarZerosEsq('0', $especificacoes[0]);
+                } else {
 
-                $valor = (new \DateTime($valor))->format($partes[1]);
+                    $valorCru = $util->somenteNumeros($valor);
+
+                    $arquivoValidacao->validaData($valorCru, $posicao, $especificacoes[0], $identifica);
+
+                    $partes = explode('-', $especificacoes[1]);
+
+                    $valor = (new \DateTime($valor))->format($partes[1]);
+                }
 
                 break;
 
