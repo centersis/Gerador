@@ -79,7 +79,7 @@ class ArquivoPadrao
                 $arquivoValidacao->validaTamanhoNum($valor, $especificacoes[0], $posicao, $identifica);
                 break;
 
-            case 'data':
+            case 'data-Ymd': case 'data-ymd': case 'data-dmY': case 'data-dmy':
                 
                 $valorCru = $util->somenteNumeros($valor);
                 
