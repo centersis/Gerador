@@ -37,6 +37,22 @@ class ArquivoPadrao
         fclose($arquivoAberto);
     }
 
+    /**
+     * Formatos
+     * 
+     * Datas:
+     * data-Ymd
+     * data-ymd
+     * data-dmY
+     * data-dmy
+     * 
+     * @param type $especificacoes
+     * @param type $valor
+     * @param type $posicao
+     * @param type $config
+     * @param type $identifica
+     * @return type
+     */
     public function tratarDados($especificacoes, $valor, $posicao, $config, $identifica)
     {
         $util = new Util();
@@ -64,8 +80,15 @@ class ArquivoPadrao
                 break;
 
             case 'data':
-                $valor = $util->somenteNumeros($valor);
-                $arquivoValidacao->validaData($valor, $especificacoes[0], $posicao, $identifica);
+                
+                $valorCru = $util->somenteNumeros($valor);
+                
+                $arquivoValidacao->validaData($valorCru, $especificacoes[0], $posicao, $identifica);
+
+                $formato = end(explode('-', $especificacoes[1]));
+
+                $valor = (new \DateTime($valor))->format($formato);
+
                 break;
 
             default :

@@ -24,7 +24,7 @@ class Sicoob081
             14 => [30, 'texto'],
             15 => [10, 'texto'],
             16 => [1, 'num'],
-            17 => [8, 'data'],
+            17 => [8, 'data-Ymd'],
             18 => [6, 'num'],
             19 => [6, 'num'],
             20 => [3, 'num'],
@@ -63,7 +63,6 @@ class Sicoob081
         return [
             5 => "validaOpcao1e2",
             6 => "validaCpfeCnpj",
-            17 => "validaData",
             18 => "validaHora",
         ];
     }
@@ -132,9 +131,7 @@ class Sicoob081
     public function headerLoteValidacao()
     {
         return [
-            /* 9 => "validaOpcao1e2",
-              10 => "validaCpfeCnpj",
-              21 => "validaData", */
+           
         ];
     }
 
@@ -236,12 +233,9 @@ class Sicoob081
               18 => "validaOpcao1e2",
               24 => "validaEspecieTitulo",
               25 => "validaIdTitulo",
-              26 => "validaData",
-              28 => "validaData",
               28 => "validaJuroseDescData",
               29 => "validaJurosDescValor",
               27 => "validaCodigo",
-              //31 => "validaData",
               //31 => "validaJuroseDescData",
               32 => "validaJurosDescValor",
               36 => "validaCodigoProtesto",
@@ -385,15 +379,12 @@ class Sicoob081
         return [
             /* 7 => "validaMovimentoRemessa",
               8 => "validaCodigo",
-              //9 => "validaData",
               //9 => "validaJuroseDescData",
               10 => "validaJurosDescValor",
               11 => "validaCodigo",
-              12 => "validaData",
               12 => "validaJuroseDescData",
               13 => "validaJurosDescValor",
-              14 => "validaCodigo",
-              //15 => "validaData",
+              14 => "validaCodigo",              
               //15 => "validaJuroseDescData",
               16 => "validaJurosDescValor", */
         ];

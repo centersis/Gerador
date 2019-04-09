@@ -17,7 +17,7 @@ class Bradesco11
             7 => [30, 'texto'],
             8 => [3, 'num'],
             9 => [15, 'texto'],
-            10 => [6, 'num'],
+            10 => [6, 'data-dmy'],
             11 => [8, 'texto'],
             12 => [2, 'texto'],
             13 => [7, 'num'],
@@ -47,7 +47,6 @@ class Bradesco11
     public function headerArquivoValidacao()
     {
         return [
-            /* 10 => "validaData" */
         ];
     }
 
@@ -81,7 +80,7 @@ class Bradesco11
             20 => [2, 'texto'],
             21 => [2, 'num'],
             22 => [10, 'texto'],
-            23 => [6, 'num'],
+            23 => [6, 'data-dmy'],
             24 => [13, 'valor'],
             25 => [3, 'num'],
             26 => [5, 'num'],
@@ -89,7 +88,7 @@ class Bradesco11
             28 => [1, 'texto'],
             29 => [6, 'num'],
             30 => [2, 'num'],
-            31 => [2, 'num'],
+            31 => [2, 'data-dmy'],
             32 => [13, 'valor'],
             33 => [6, 'num'],
             34 => [13, 'valor'],
@@ -148,10 +147,7 @@ class Bradesco11
         return [
             /* 10 => "validaCodigoMulta",
               15 => "validaOpcao1e2",
-              23 => "validaData",
               27 => "validaEspecieTitulo",
-              29 => "validaData",
-              33 => "validaData",
               37 => "validaOpcao1e2",
               38 => "validaCpfeCnpj",
               42 => "validaCep",
@@ -172,9 +168,9 @@ class Bradesco11
             3 => [80, 'texto'],
             4 => [80, 'texto'],
             5 => [80, 'texto'],
-            6 => [6, 'num'],
+            6 => [6, 'data-dmy'],
             7 => [13, 'num'],
-            8 => [6, 'num'],
+            8 => [6, 'data-dmy'],
             9 => [13, 'num'],
             10 => [7, 'texto'],
             11 => [3, 'num'],
@@ -204,8 +200,6 @@ class Bradesco11
     public function tipoDoisValidacao()
     {
         return [
-            /* 6 => "validaData",
-              8 => "validaData" */
         ];
     }
 
