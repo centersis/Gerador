@@ -83,7 +83,7 @@ class ArquivoPadrao
                 
                 $valorCru = $util->somenteNumeros($valor);
                 
-                $arquivoValidacao->validaData($valorCru, $especificacoes[0], $posicao, $identifica);
+                $arquivoValidacao->validaData($valorCru, $posicao, $especificacoes[0], $identifica);
 
                 $partes = explode('-', $especificacoes[1]);
 
