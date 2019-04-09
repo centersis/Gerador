@@ -85,9 +85,9 @@ class ArquivoPadrao
                 
                 $arquivoValidacao->validaData($valorCru, $especificacoes[0], $posicao, $identifica);
 
-                $formato = end(explode('-', $especificacoes[1]));
+                $partes = explode('-', $especificacoes[1]);
 
-                $valor = (new \DateTime($valor))->format($formato);
+                $valor = (new \DateTime($valor))->format($partes[1]);
 
                 break;
 
