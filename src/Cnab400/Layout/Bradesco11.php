@@ -36,7 +36,7 @@ class Bradesco11
             5 => "COBRANCA",            
             8 => 237,
             9 => "Bradesco",
-            10 => date("dmy"),
+            10 => date("Y-m-d"),
             11 => "",
             12 => "MX",
             14 => "",
