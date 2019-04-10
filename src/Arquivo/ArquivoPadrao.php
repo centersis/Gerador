@@ -87,6 +87,10 @@ class ArquivoPadrao
 
                     $valorCru = $util->somenteNumeros($valor);
 
+                    if (strlen($valorCru) > 8) {
+                        $valorCru = substr($valorCru, 0, 8);
+                    }
+
                     $arquivoValidacao->validaData($valorCru, $posicao, $especificacoes[0], $identifica);
 
                     $partes = explode('-', $especificacoes[1]);
