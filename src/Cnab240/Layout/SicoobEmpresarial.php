@@ -2,9 +2,11 @@
 
 namespace Cnab240\Layout;
 
-class SicoobEmpresarial {
+class SicoobEmpresarial
+{
 
-    public function headerArquivo() {
+    public function headerArquivo()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -33,24 +35,28 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function headerArquivoDefault() {
+    public function headerArquivoDefault()
+    {
         return [
             1 => 756,
             2 => 0,
             3 => 0,
             4 => "",
+            12 => 0,
             15 => "",
             16 => 1,
             17 => date('Y-m-d'),
             18 => date('h:i:s'),
             20 => "087",
+            21 => 0,
             22 => "",
             23 => "",
             24 => "",
         ];
     }
 
-    public function headerArquivoValidacao() {
+    public function headerArquivoValidacao()
+    {
         return [
             5 => "validaOpcao1e2",
             6 => "validaCpfeCnpj",
@@ -58,12 +64,14 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function headerArquivoDinamico() {
+    public function headerArquivoDinamico()
+    {
         return [
         ];
     }
 
-    public function headerLoteCobranca() {
+    public function headerLoteCobranca()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -95,7 +103,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function headerLoteCobrancaDefault($headerArquivo) {
+    public function headerLoteCobrancaDefault()
+    {
         return [
             1 => 746,
             3 => 1,
@@ -110,7 +119,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function segmentoJ() {
+    public function segmentoJ()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -136,7 +146,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function segmentoJDefault() {
+    public function segmentoJDefault()
+    {
         return [
             1 => 756,
             3 => 3,
@@ -146,7 +157,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function segmentoJ52() {
+    public function segmentoJ52()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -165,11 +177,12 @@ class SicoobEmpresarial {
             15 => [1, 'num'],
             16 => [15, 'num'],
             17 => [10, 'texto'],
-            18 => [53, 'texto'],            
+            18 => [53, 'texto'],
         ];
     }
 
-    public function segmentoJ32Default() {
+    public function segmentoJ32Default()
+    {
         return [
             1 => 756,
             2 => 1,
@@ -190,8 +203,9 @@ class SicoobEmpresarial {
             18 => "",
         ];
     }
-    
-    public function trailerLoteCobranca() {
+
+    public function trailerLoteCobranca()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -205,17 +219,19 @@ class SicoobEmpresarial {
             10 => [10, 'texto'],
         ];
     }
-    
-    public function trailerLoteCobrancaDefault() {
-        return [            
+
+    public function trailerLoteCobrancaDefault()
+    {
+        return [
             3 => 5,
             4 => "",
             9 => "",
             10 => "",
         ];
     }
-    
-    public function headerLoteConvenio() {
+
+    public function headerLoteConvenio()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -248,7 +264,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function headerLoteConvenioDefault($headerArquivo) {
+    public function headerLoteConvenioDefault($headerArquivo)
+    {
         return [
             1 => 746,
             3 => 1,
@@ -261,7 +278,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function segmentoO() {
+    public function segmentoO()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -278,11 +296,12 @@ class SicoobEmpresarial {
             13 => [20, 'texto'],
             14 => [20, 'texto'],
             15 => [68, 'texto'],
-            16 => [10, 'texto'],            
+            16 => [10, 'texto'],
         ];
     }
 
-    public function segmentoODefault() {
+    public function segmentoODefault()
+    {
         return [
             1 => 746,
             3 => 3,
@@ -291,8 +310,9 @@ class SicoobEmpresarial {
             16 => "",
         ];
     }
-    
-    public function segmentoN() {
+
+    public function segmentoN()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -307,11 +327,12 @@ class SicoobEmpresarial {
             11 => [8, 'data-dmY'],
             12 => [13, 'num'],
             13 => [120, 'texto'],
-            14 => [10, 'texto'],           
+            14 => [10, 'texto'],
         ];
     }
 
-    public function segmentoNDefault() {
+    public function segmentoNDefault()
+    {
         return [
             1 => 746,
             3 => 3,
@@ -321,7 +342,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function trailerLoteConvenio() {
+    public function trailerLoteConvenio()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -333,9 +355,10 @@ class SicoobEmpresarial {
             8 => [10, 'texto'],
         ];
     }
-    
-    public function trailerLoteConvenioDefault() {
-        return [            
+
+    public function trailerLoteConvenioDefault()
+    {
+        return [
             3 => 5,
             4 => "",
             7 => "",
@@ -343,7 +366,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function traillerArquivo() {
+    public function traillerArquivo()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -356,7 +380,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function traillerArquivoDefault() {
+    public function traillerArquivoDefault()
+    {
         return [
             1 => 756,
             2 => 9999,
@@ -368,7 +393,8 @@ class SicoobEmpresarial {
         ];
     }
 
-    public function segmentosObrigatorios() {
+    public function segmentosObrigatorios()
+    {
         return [
             0, 1, "P", "Q", 5, 9,
         ];
