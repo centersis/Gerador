@@ -2,7 +2,7 @@
 
 namespace Cnab240\Layout;
 
-class SicoobEmpresarial
+class SicoobPagamentoTitulo
 {
 
     public function headerArquivo()
@@ -70,7 +70,7 @@ class SicoobEmpresarial
         ];
     }
 
-    public function headerLoteCobranca()
+    public function headerLote()
     {
         return [
             1 => [3, 'num'],
@@ -103,19 +103,33 @@ class SicoobEmpresarial
         ];
     }
 
-    public function headerLoteCobrancaDefault()
+    public function headerLoteDefault()
     {
         return [
-            1 => 746,
+            1 => 756,
+            2 => 1,
             3 => 1,
             4 => "C",
             5 => 1,
             6 => "",
             7 => "040",
             8 => "",
+            16 => 0,
             18 => "",
             26 => "",
             27 => ""
+        ];
+    }
+
+    public function headerLoteValidacao()
+    {
+        return [
+        ];
+    }
+
+    public function headerLoteDinamico()
+    {
+        return [
         ];
     }
 
@@ -150,10 +164,29 @@ class SicoobEmpresarial
     {
         return [
             1 => 756,
+            2 => 1,
             3 => 3,
             5 => "J",
+            6 => 0,
+            7 => 0,
+            9 => '',
+            16 => 0,
+            18 => '',
+            19 => 09,
             20 => "",
             21 => "",
+        ];
+    }
+
+    public function segmentoJValidacao()
+    {
+        return [
+        ];
+    }
+
+    public function segmentoJDinamico()
+    {
+        return [
         ];
     }
 
@@ -181,7 +214,7 @@ class SicoobEmpresarial
         ];
     }
 
-    public function segmentoJ32Default()
+    public function segmentoJ52Default()
     {
         return [
             1 => 756,
@@ -204,77 +237,15 @@ class SicoobEmpresarial
         ];
     }
 
-    public function trailerLoteCobranca()
+    public function segmentoJ52Validacao()
     {
         return [
-            1 => [3, 'num'],
-            2 => [4, 'num'],
-            3 => [1, 'num'],
-            4 => [9, 'texto'],
-            5 => [6, 'num'],
-            6 => [16, 'num'],
-            7 => [13, 'num'],
-            8 => [6, 'num'],
-            9 => [165, 'texto'],
-            10 => [10, 'texto'],
         ];
     }
 
-    public function trailerLoteCobrancaDefault()
+    public function segmentoJ52Dinamico()
     {
         return [
-            3 => 5,
-            4 => "",
-            9 => "",
-            10 => "",
-        ];
-    }
-
-    public function headerLoteConvenio()
-    {
-        return [
-            1 => [3, 'num'],
-            2 => [4, 'num'],
-            3 => [1, 'num'],
-            4 => [1, 'texto'],
-            5 => [2, 'num'],
-            6 => [2, 'num'],
-            7 => [3, 'num'],
-            8 => [1, 'texto'],
-            9 => [1, 'num'],
-            10 => [14, 'num'],
-            11 => [20, 'texto'],
-            12 => [5, 'num'],
-            13 => [1, 'texto'],
-            14 => [12, 'num'],
-            15 => [1, 'num'],
-            16 => [1, 'texto'],
-            17 => [30, 'texto'],
-            18 => [40, 'texto'],
-            19 => [30, 'texto'],
-            20 => [5, 'num'],
-            21 => [15, 'texto'],
-            22 => [20, 'texto'],
-            23 => [5, 'num'],
-            24 => [3, 'texto'],
-            25 => [2, 'texto'],
-            26 => [2, 'num'],
-            27 => [6, 'texto'],
-            28 => [10, 'texto']
-        ];
-    }
-
-    public function headerLoteConvenioDefault($headerArquivo)
-    {
-        return [
-            1 => 746,
-            3 => 1,
-            4 => "C",
-            7 => "012",
-            8 => "",
-            18 => "",
-            27 => "",
-            28 => ""
         ];
     }
 
@@ -342,7 +313,7 @@ class SicoobEmpresarial
         ];
     }
 
-    public function trailerLoteConvenio()
+    public function traillerLote()
     {
         return [
             1 => [3, 'num'],
@@ -351,18 +322,35 @@ class SicoobEmpresarial
             4 => [9, 'texto'],
             5 => [6, 'num'],
             6 => [16, 'num'],
-            7 => [189, 'texto'],
-            8 => [10, 'texto'],
+            7 => [13, 'num'],
+            8 => [6, 'num'],
+            9 => [165, 'texto'],
+            10 => [10, 'texto'],
         ];
     }
 
-    public function trailerLoteConvenioDefault()
+    public function traillerLoteDefault()
     {
         return [
+            1 => 756,
+            2 => 1,
             3 => 5,
             4 => "",
-            7 => "",
-            8 => "",
+            7 => 0,
+            8 => 0,
+            9 => "",
+            10 => "",
+        ];
+    }
+
+    public function traillerLoteValidacao()
+    {
+        return [];
+    }
+
+    public function traillerLoteDinamico()
+    {
+        return [
         ];
     }
 
@@ -393,10 +381,21 @@ class SicoobEmpresarial
         ];
     }
 
+    public function traillerArquivoValidacao()
+    {
+        return [];
+    }
+
+    public function traillerArquivoDinamico()
+    {
+        return [
+        ];
+    }
+
     public function segmentosObrigatorios()
     {
         return [
-            0, 1, "P", "Q", 5, 9,
+            'J', 'J52'
         ];
     }
 
