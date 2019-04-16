@@ -48,7 +48,7 @@ class Cnab240
         $this->segmentoJ[] = $segmentoJ;
     }
 
-    function setSegmentoJ52($segmentoJ)
+    function setSegmentoJ52($segmentoJ52)
     {
         $this->segmentoJ52[] = $segmentoJ52;
     }
