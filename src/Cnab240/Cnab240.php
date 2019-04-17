@@ -146,7 +146,7 @@ class Cnab240
         $modeloHeaderLoteDinamico = $iLayout->headerLoteDinamico($sequencial);
         $modeloHeaderLote = $iLayout->headerLote();
 
-        foreach ($this->headerLote as $loteNumero) {
+        foreach (array_keys($this->headerLote) as $loteNumero) {
 
             $headerLote = [];
             $validacaoCnab->validaSegmentosObrigatorios($this->headerLote[$loteNumero], 1, $segmentosObrigatorios);
@@ -167,7 +167,7 @@ class Cnab240
             $this->linhas[] = $headerLote;
 
             ##Empresarial
-            if ($this->segmentoJ[$loteNumero]) {
+            if (isset($this->segmentoJ[$loteNumero])) {
 
                 $modeloSegmentoJ = $iLayout->segmentoJ();
                 $modeloSegmentoJDefault = $iLayout->segmentoJDefault($headerArquivo);
@@ -187,7 +187,7 @@ class Cnab240
                 $this->segmentoJ52[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoJ52, $this->segmentoJ52[$loteNumero], $modeloSegmentoJ52Default, $modeloSegmentoJ52Dinamico, 'segmentoJ52');
 
 
-                if ($this->segmentoO[$loteNumero]) {
+                if (isset($this->segmentoO[$loteNumero])) {
                     $modeloSegmentoO = $iLayout->segmentoO();
                     $modeloSegmentoODefault = $iLayout->segmentoODefault($headerArquivo);
                     $modeloSegmentoOValidacao = $iLayout->segmentoOValidacao();
@@ -229,7 +229,7 @@ class Cnab240
 
                     $contalinhas++;
 
-                    if ($this->segmentoO[$loteNumero]) {
+                    if (isset($this->segmentoO[$loteNumero])) {
 
                         $segmentoO = [];
 
@@ -257,7 +257,7 @@ class Cnab240
             }
 
             #Remessa
-            if ($this->segmentoP[$loteNumero]) {
+            if (isset($this->segmentoP[$loteNumero])) {
                 $modeloSegmentoP = $iLayout->segmentoP();
                 $modeloSegmentoPDefault = $iLayout->segmentoPDefault($headerArquivo);
                 $modeloSegmentoPValidacao = $iLayout->segmentoPValidacao();
@@ -275,7 +275,7 @@ class Cnab240
                 $validacaoCnab->validaSegmentosObrigatorios($this->segmentoQ[$loteNumero], "Q", $segmentosObrigatorios);
                 $this->segmentoQ[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoQ, $this->segmentoQ[$loteNumero], $modeloSegmentoQDefault, $modeloSegmentoQDinamico, 'segmentoQ');
 
-                if ($this->segmentoR[$loteNumero]) {
+                if (isset($this->segmentoR[$loteNumero])) {
                     $modeloSegmentoR = $iLayout->segmentoR();
                     $modeloSegmentoRDefault = $iLayout->segmentoRDefault($headerArquivo);
                     $modeloSegmentoRValidacao = $iLayout->segmentoRValidacao();
@@ -317,7 +317,7 @@ class Cnab240
                     }
 
                     $contalinhas++;
-                    if ($this->segmentoR[$loteNumero]) {
+                    if (isset($this->segmentoR[$loteNumero])) {
 
                         $segmentoR = [];
 
@@ -338,7 +338,7 @@ class Cnab240
                     $this->linhas[] = $segmentoP;
                     $this->linhas[] = $segmentoQ;
 
-                    if ($this->segmentoR[$loteNumero]) {
+                    if (isset($this->segmentoR[$loteNumero])) {
                         $this->linhas[] = $segmentoR;
                     }
                 }
