@@ -250,7 +250,7 @@ class Cnab240
                     $this->linhas[] = $segmentoJ;
                     $this->linhas[] = $segmentoJ52;
 
-                    if ($this->segmentoO[$loteNumero]) {
+                    if (isset($this->segmentoO[$loteNumero])) {
                         $this->linhas[] = $segmentoO;
                     }
                 }
