@@ -40,44 +40,44 @@ class Cnab240
         $this->headerArquivo = $headerArquivo;
     }
 
-    function setHeaderLote($headerLote)
+    function setHeaderLote($headerLote, $lote)
     {
-        $this->headerLote = $headerLote;
+        $this->headerLote[$lote] = $headerLote;
     }
 
-    function setSegmentoJ($segmentoJ)
+    function setSegmentoJ($segmentoJ, $lote)
     {
-        $this->segmentoJ[] = $segmentoJ;
+        $this->segmentoJ[$lote][] = $segmentoJ;
     }
 
-    function setSegmentoJ52($segmentoJ52)
+    function setSegmentoJ52($segmentoJ52, $lote)
     {
-        $this->segmentoJ52[] = $segmentoJ52;
+        $this->segmentoJ52[$lote][] = $segmentoJ52;
     }
 
-    function setSegmentoO($segmentoO)
+    function setSegmentoO($segmentoO, $lote)
     {
-        $this->segmentoO[] = $segmentoO;
+        $this->segmentoO[$lote][] = $segmentoO;
     }
 
-    function setSegmentoP($segmentoP)
+    function setSegmentoP($segmentoP, $lote)
     {
-        $this->segmentoP[] = $segmentoP;
+        $this->segmentoP[$lote][] = $segmentoP;
     }
 
-    function setSegmentoQ($segmentoQ)
+    function setSegmentoQ($segmentoQ, $lote)
     {
-        $this->segmentoQ[] = $segmentoQ;
+        $this->segmentoQ[$lote][] = $segmentoQ;
     }
 
-    function setSegmentoR($segmentoR)
+    function setSegmentoR($segmentoR, $lote)
     {
-        $this->segmentoR[] = $segmentoR;
+        $this->segmentoR[$lote][] = $segmentoR;
     }
 
-    function setTraillerLote($traillerLote)
+    function setTraillerLote($traillerLote, $lote)
     {
-        $this->traillerLote = $traillerLote;
+        $this->traillerLote[$lote] = $traillerLote;
     }
 
     function setTraillerArquivo($traillerArquivo)
@@ -146,223 +146,227 @@ class Cnab240
         $modeloHeaderLoteDinamico = $iLayout->headerLoteDinamico($sequencial);
         $modeloHeaderLote = $iLayout->headerLote();
 
-        $headerLote = [];
-        $validacaoCnab->validaSegmentosObrigatorios($this->headerLote, 1, $segmentosObrigatorios);
+        foreach ($this->headerLote as $loteNumero) {
 
-        $this->headerLote = $validacaoCnab->setDefault($modeloHeaderLote, $this->headerLote, $modeloHeaderLoteDefault, $modeloHeaderLoteDinamico, 'headerLote');
+            $headerLote = [];
+            $validacaoCnab->validaSegmentosObrigatorios($this->headerLote[$loteNumero], 1, $segmentosObrigatorios);
 
-        foreach ($modeloHeaderLote as $key => $especificacoes) {
+            $this->headerLote[$loteNumero] = $validacaoCnab->setDefault($modeloHeaderLote, $this->headerLote[$loteNumero], $modeloHeaderLoteDefault, $modeloHeaderLoteDinamico, 'headerLote');
 
-            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerLote[$key], $key, $config, 'headerLote');
+            foreach ($modeloHeaderLote as $key => $especificacoes) {
 
-            if (isset($modeloHeaderLoteValidacao[$key])) {
-                $validacaoCnab->{$modeloHeaderLoteValidacao[$key]}($valor, $key, $headerLote, 'headerLote');
-            }
+                $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerLote[$loteNumero][$key], $key, $config, 'headerLote');
 
-            $headerLote[] = $valor;
-        }
-
-        $this->linhas[] = $headerLote;
-
-        ##Empresarial
-        if ($this->segmentoJ) {
-
-            $modeloSegmentoJ = $iLayout->segmentoJ();
-            $modeloSegmentoJDefault = $iLayout->segmentoJDefault($headerArquivo);
-            $modeloSegmentoJValidacao = $iLayout->segmentoJValidacao();
-            $modeloSegmentoJDinamico = $iLayout->segmentoJDinamico();
-
-            $validacaoCnab->validaSegmentosObrigatorios($this->segmentoJ, "J", $segmentosObrigatorios);
-            $this->segmentoJ = $validacaoCnab->setDefault($modeloSegmentoJ, $this->segmentoJ, $modeloSegmentoJDefault, $modeloSegmentoJDinamico, 'segmentoJ');
-
-
-            $modeloSegmentoJ52 = $iLayout->segmentoJ52();
-            $modeloSegmentoJ52Default = $iLayout->segmentoJ52Default($headerArquivo);
-            $modeloSegmentoJ52Validacao = $iLayout->segmentoJ52Validacao();
-            $modeloSegmentoJ52Dinamico = $iLayout->segmentoJ52Dinamico();
-
-            $validacaoCnab->validaSegmentosObrigatorios($this->segmentoJ52, "J52", $segmentosObrigatorios);
-            $this->segmentoJ52 = $validacaoCnab->setDefault($modeloSegmentoJ52, $this->segmentoJ52, $modeloSegmentoJ52Default, $modeloSegmentoJ52Dinamico, 'segmentoJ52');
-
-
-            if ($this->segmentoO) {
-                $modeloSegmentoO = $iLayout->segmentoO();
-                $modeloSegmentoODefault = $iLayout->segmentoODefault($headerArquivo);
-                $modeloSegmentoOValidacao = $iLayout->segmentoOValidacao();
-                $modeloSegmentoODinamico = $iLayout->segmentoODinamico();
-
-                $validacaoCnab->validaSegmentosObrigatorios($this->segmentoO, "O", $segmentosObrigatorios);
-                $this->segmentoO = $validacaoCnab->setDefault($modeloSegmentoO, $this->segmentoO, $modeloSegmentoODefault, $modeloSegmentoODinamico, 'segmentoO');
-            }
-
-            foreach ($this->segmentoJ as $keySegmentoJ => $dadosSegmentoJ) {
-
-                $segmentoJ = [];
-
-                foreach ($modeloSegmentoJ as $keyModeloJ => $especificacoesModeloJ) {
-
-                    $valorJ = $arquivoPadrao->tratarDados($especificacoesModeloJ, $dadosSegmentoJ[$keyModeloJ], $keyModeloJ, $config, 'segmentoJ');
-
-                    if (isset($modeloSegmentoJValidacao[$keyModeloJ])) {
-                        $validacaoCnab->{$modeloSegmentoJValidacao[$keyModeloJ]}($valorJ, $keyModeloJ, $dadosSegmentoJ, 'segmentoJ');
-                    }
-
-                    $segmentoJ[] = $valorJ;
+                if (isset($modeloHeaderLoteValidacao[$key])) {
+                    $validacaoCnab->{$modeloHeaderLoteValidacao[$key]}($valor, $key, $headerLote, 'headerLote');
                 }
 
-                $contalinhas++;
-                $quantTitulos++;
-                $segmentoJ52 = [];
+                $headerLote[] = $valor;
+            }
 
-                foreach ($modeloSegmentoJ52 as $keyModeloJ52 => $especificacoesModeloJ52) {
+            $this->linhas[] = $headerLote;
 
-                    $valorJ52 = $arquivoPadrao->tratarDados($especificacoesModeloJ52, $this->segmentoJ52[$keySegmentoJ][$keyModeloJ52], $keyModeloJ52, $config, 'segmentoJ52');
+            ##Empresarial
+            if ($this->segmentoJ[$loteNumero]) {
 
-                    if (isset($modeloSegmentoJ52Validacao[$keyModeloJ52])) {
-                        $validacaoCnab->{$modeloSegmentoJ52Validacao[$keyModeloJ52]}($valorJ52, $keyModeloJ52, $this->segmentoJ52[$keySegmentoJ], 'segmentoJ52');
-                    }
+                $modeloSegmentoJ = $iLayout->segmentoJ();
+                $modeloSegmentoJDefault = $iLayout->segmentoJDefault($headerArquivo);
+                $modeloSegmentoJValidacao = $iLayout->segmentoJValidacao();
+                $modeloSegmentoJDinamico = $iLayout->segmentoJDinamico();
 
-                    $segmentoJ52[] = $valorJ52;
+                $validacaoCnab->validaSegmentosObrigatorios($this->segmentoJ[$loteNumero], "J", $segmentosObrigatorios);
+                $this->segmentoJ[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoJ, $this->segmentoJ[$loteNumero], $modeloSegmentoJDefault, $modeloSegmentoJDinamico, 'segmentoJ');
+
+
+                $modeloSegmentoJ52 = $iLayout->segmentoJ52();
+                $modeloSegmentoJ52Default = $iLayout->segmentoJ52Default($headerArquivo);
+                $modeloSegmentoJ52Validacao = $iLayout->segmentoJ52Validacao();
+                $modeloSegmentoJ52Dinamico = $iLayout->segmentoJ52Dinamico();
+
+                $validacaoCnab->validaSegmentosObrigatorios($this->segmentoJ52[$loteNumero], "J52", $segmentosObrigatorios);
+                $this->segmentoJ52[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoJ52, $this->segmentoJ52[$loteNumero], $modeloSegmentoJ52Default, $modeloSegmentoJ52Dinamico, 'segmentoJ52');
+
+
+                if ($this->segmentoO[$loteNumero]) {
+                    $modeloSegmentoO = $iLayout->segmentoO();
+                    $modeloSegmentoODefault = $iLayout->segmentoODefault($headerArquivo);
+                    $modeloSegmentoOValidacao = $iLayout->segmentoOValidacao();
+                    $modeloSegmentoODinamico = $iLayout->segmentoODinamico();
+
+                    $validacaoCnab->validaSegmentosObrigatorios($this->segmentoO[$loteNumero], "O", $segmentosObrigatorios);
+                    $this->segmentoO[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoO, $this->segmentoO[$loteNumero], $modeloSegmentoODefault, $modeloSegmentoODinamico, 'segmentoO');
                 }
 
-                $contalinhas++;
+                foreach ($this->segmentoJ[$loteNumero] as $keySegmentoJ => $dadosSegmentoJ) {
 
-                if ($this->segmentoO) {
+                    $segmentoJ = [];
 
-                    $segmentoO = [];
+                    foreach ($modeloSegmentoJ as $keyModeloJ => $especificacoesModeloJ) {
 
-                    foreach ($modeloSegmentoO as $keyModeloO => $especificacoesModeloO) {
+                        $valorJ = $arquivoPadrao->tratarDados($especificacoesModeloJ, $dadosSegmentoJ[$keyModeloJ], $keyModeloJ, $config, 'segmentoJ');
 
-                        $valorO = $arquivoPadrao->tratarDados($especificacoesModeloO, $this->segmentoO[$keySegmentoJ][$keyModeloO], $keyModeloO, $config, 'segmentoO');
-
-                        if (isset($modeloSegmentoOValidacao[$keyModeloO])) {
-                            $validacaoCnab->{$modeloSegmentoOValidacao[$keyModeloO]}($valorO, $keyModeloO, $this->segmentoO[$keySegmentoJ], 'segmentoO');
+                        if (isset($modeloSegmentoJValidacao[$keyModeloJ])) {
+                            $validacaoCnab->{$modeloSegmentoJValidacao[$keyModeloJ]}($valorJ, $keyModeloJ, $dadosSegmentoJ, 'segmentoJ');
                         }
 
-                        $segmentoO[] = $valorO;
+                        $segmentoJ[] = $valorJ;
                     }
 
                     $contalinhas++;
-                }
+                    $quantTitulos++;
+                    $segmentoJ52 = [];
 
-                $this->linhas[] = $segmentoJ;
-                $this->linhas[] = $segmentoJ52;
+                    foreach ($modeloSegmentoJ52 as $keyModeloJ52 => $especificacoesModeloJ52) {
 
-                if ($this->segmentoO) {
-                    $this->linhas[] = $segmentoO;
-                }
-            }
-        }
+                        $valorJ52 = $arquivoPadrao->tratarDados($especificacoesModeloJ52, $this->segmentoJ52[$loteNumero][$keySegmentoJ][$keyModeloJ52], $keyModeloJ52, $config, 'segmentoJ52');
 
-        #Remessa
-        if ($this->segmentoP) {
-            $modeloSegmentoP = $iLayout->segmentoP();
-            $modeloSegmentoPDefault = $iLayout->segmentoPDefault($headerArquivo);
-            $modeloSegmentoPValidacao = $iLayout->segmentoPValidacao();
-            $modeloSegmentoPDinamico = $iLayout->segmentoPDinamico();
-
-            $validacaoCnab->validaSegmentosObrigatorios($this->segmentoP, "P", $segmentosObrigatorios);
-            $this->segmentoP = $validacaoCnab->setDefault($modeloSegmentoP, $this->segmentoP, $modeloSegmentoPDefault, $modeloSegmentoPDinamico, 'segmentoP');
-
-            $modeloSegmentoQ = $iLayout->segmentoQ();
-            $modeloSegmentoQDefault = $iLayout->segmentoQDefault($headerArquivo);
-            $modeloSegmentoQValidacao = $iLayout->segmentoQValidacao();
-            $modeloSegmentoQDinamico = $iLayout->segmentoQDinamico();
-
-
-            $validacaoCnab->validaSegmentosObrigatorios($this->segmentoQ, "Q", $segmentosObrigatorios);
-            $this->segmentoQ = $validacaoCnab->setDefault($modeloSegmentoQ, $this->segmentoQ, $modeloSegmentoQDefault, $modeloSegmentoQDinamico, 'segmentoQ');
-
-            if ($this->segmentoR) {
-                $modeloSegmentoR = $iLayout->segmentoR();
-                $modeloSegmentoRDefault = $iLayout->segmentoRDefault($headerArquivo);
-                $modeloSegmentoRValidacao = $iLayout->segmentoRValidacao();
-                $modeloSegmentoRDinamico = $iLayout->segmentoRDinamico();
-
-                $validacaoCnab->validaSegmentosObrigatorios($this->segmentoR, "R", $segmentosObrigatorios);
-                $this->segmentoR = $validacaoCnab->setDefault($modeloSegmentoR, $this->segmentoR, $modeloSegmentoRDefault, $modeloSegmentoRDinamico, 'segmentoR');
-            }
-
-            foreach ($this->segmentoP as $keySegmentoP => $dadosSegmentoP) {
-
-                $segmentoP = [];
-                $somaValor += $dadosSegmentoP[21];
-
-                foreach ($modeloSegmentoP as $keyModeloP => $especificacoesModeloP) {
-
-                    $valorP = $arquivoPadrao->tratarDados($especificacoesModeloP, $dadosSegmentoP[$keyModeloP], $keyModeloP, $config, 'segmentoP');
-
-                    if (isset($modeloSegmentoPValidacao[$keyModeloP])) {
-                        $validacaoCnab->{$modeloSegmentoPValidacao[$keyModeloP]}($valorP, $keyModeloP, $dadosSegmentoP, 'segmentoP');
-                    }
-
-                    $segmentoP[] = $valorP;
-                }
-
-                $contalinhas++;
-                $quantTitulos++;
-                $segmentoQ = [];
-
-                foreach ($modeloSegmentoQ as $keyModeloQ => $especificacoesModeloQ) {
-
-                    $valorQ = $arquivoPadrao->tratarDados($especificacoesModeloQ, $this->segmentoQ[$keySegmentoP][$keyModeloQ], $keyModeloQ, $config, 'segmentoQ');
-
-                    if (isset($modeloSegmentoQValidacao[$keyModeloQ])) {
-                        $validacaoCnab->{$modeloSegmentoQValidacao[$keyModeloQ]}($valorQ, $keyModeloQ, $this->segmentoQ[$keySegmentoP], 'segmentoQ');
-                    }
-
-                    $segmentoQ[] = $valorQ;
-                }
-
-                $contalinhas++;
-                if ($this->segmentoR) {
-
-                    $segmentoR = [];
-
-                    foreach ($modeloSegmentoR as $keyModeloR => $especificacoesModeloR) {
-
-                        $valorR = $arquivoPadrao->tratarDados($especificacoesModeloR, $this->segmentoR[$keySegmentoP][$keyModeloR], $keyModeloR, $config, 'segmentoR');
-
-                        if (isset($modeloSegmentoRValidacao[$keyModeloR])) {
-                            $validacaoCnab->{$modeloSegmentoRValidacao[$keyModeloR]}($valorR, $keyModeloR, $this->segmentoR[$keySegmentoP], 'segmentoR');
+                        if (isset($modeloSegmentoJ52Validacao[$keyModeloJ52])) {
+                            $validacaoCnab->{$modeloSegmentoJ52Validacao[$keyModeloJ52]}($valorJ52, $keyModeloJ52, $this->segmentoJ52[$loteNumero][$keySegmentoJ], 'segmentoJ52');
                         }
 
-                        $segmentoR[] = $valorR;
+                        $segmentoJ52[] = $valorJ52;
                     }
 
                     $contalinhas++;
-                }
 
-                $this->linhas[] = $segmentoP;
-                $this->linhas[] = $segmentoQ;
+                    if ($this->segmentoO[$loteNumero]) {
 
-                if ($this->segmentoR) {
-                    $this->linhas[] = $segmentoR;
+                        $segmentoO = [];
+
+                        foreach ($modeloSegmentoO as $keyModeloO => $especificacoesModeloO) {
+
+                            $valorO = $arquivoPadrao->tratarDados($especificacoesModeloO, $this->segmentoO[$loteNumero][$keySegmentoJ][$keyModeloO], $keyModeloO, $config, 'segmentoO');
+
+                            if (isset($modeloSegmentoOValidacao[$keyModeloO])) {
+                                $validacaoCnab->{$modeloSegmentoOValidacao[$keyModeloO]}($valorO, $keyModeloO, $this->segmentoO[$loteNumero][$keySegmentoJ], 'segmentoO');
+                            }
+
+                            $segmentoO[] = $valorO;
+                        }
+
+                        $contalinhas++;
+                    }
+
+                    $this->linhas[] = $segmentoJ;
+                    $this->linhas[] = $segmentoJ52;
+
+                    if ($this->segmentoO[$loteNumero]) {
+                        $this->linhas[] = $segmentoO;
+                    }
                 }
             }
-        }
 
-        $modeloTraillerLote = $iLayout->traillerLote();
-        $modeloTraillerLoteDefault = $iLayout->traillerLoteDefault($headerArquivo);
-        $modeloTraillerLoteValidacao = $iLayout->traillerLoteValidacao();
-        $modeloTraillerLoteDinamico = $iLayout->traillerLoteDinamico($quantTitulos, $somaValor);
-        $traillerLote = [];
+            #Remessa
+            if ($this->segmentoP[$loteNumero]) {
+                $modeloSegmentoP = $iLayout->segmentoP();
+                $modeloSegmentoPDefault = $iLayout->segmentoPDefault($headerArquivo);
+                $modeloSegmentoPValidacao = $iLayout->segmentoPValidacao();
+                $modeloSegmentoPDinamico = $iLayout->segmentoPDinamico();
 
-        $this->traillerLote = $validacaoCnab->setDefault($modeloTraillerLote, $this->traillerLote, $modeloTraillerLoteDefault, $modeloTraillerLoteDinamico, 'traillerLote');
+                $validacaoCnab->validaSegmentosObrigatorios($this->segmentoP[$loteNumero], "P", $segmentosObrigatorios);
+                $this->segmentoP[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoP, $this->segmentoP[$loteNumero], $modeloSegmentoPDefault, $modeloSegmentoPDinamico, 'segmentoP');
 
-        foreach ($modeloTraillerLote as $key => $especificacoes) {
+                $modeloSegmentoQ = $iLayout->segmentoQ();
+                $modeloSegmentoQDefault = $iLayout->segmentoQDefault($headerArquivo);
+                $modeloSegmentoQValidacao = $iLayout->segmentoQValidacao();
+                $modeloSegmentoQDinamico = $iLayout->segmentoQDinamico();
 
-            $valor = $arquivoPadrao->tratarDados($especificacoes, $this->traillerLote[$key], $key, $config, 'traillerLote');
 
-            if (isset($modeloTraillerLoteValidacao[$key])) {
-                $validacaoCnab->{$modeloTraillerLoteValidacao[$key]}($valor, $key, $this->traillerLote, 'traillerLote');
+                $validacaoCnab->validaSegmentosObrigatorios($this->segmentoQ[$loteNumero], "Q", $segmentosObrigatorios);
+                $this->segmentoQ[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoQ, $this->segmentoQ[$loteNumero], $modeloSegmentoQDefault, $modeloSegmentoQDinamico, 'segmentoQ');
+
+                if ($this->segmentoR[$loteNumero]) {
+                    $modeloSegmentoR = $iLayout->segmentoR();
+                    $modeloSegmentoRDefault = $iLayout->segmentoRDefault($headerArquivo);
+                    $modeloSegmentoRValidacao = $iLayout->segmentoRValidacao();
+                    $modeloSegmentoRDinamico = $iLayout->segmentoRDinamico();
+
+                    $validacaoCnab->validaSegmentosObrigatorios($this->segmentoR[$loteNumero], "R", $segmentosObrigatorios);
+                    $this->segmentoR[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoR, $this->segmentoR[$loteNumero], $modeloSegmentoRDefault, $modeloSegmentoRDinamico, 'segmentoR');
+                }
+
+                foreach ($this->segmentoP[$loteNumero] as $keySegmentoP => $dadosSegmentoP) {
+
+                    $segmentoP = [];
+                    $somaValor += $dadosSegmentoP[21];
+
+                    foreach ($modeloSegmentoP as $keyModeloP => $especificacoesModeloP) {
+
+                        $valorP = $arquivoPadrao->tratarDados($especificacoesModeloP, $dadosSegmentoP[$keyModeloP], $keyModeloP, $config, 'segmentoP');
+
+                        if (isset($modeloSegmentoPValidacao[$keyModeloP])) {
+                            $validacaoCnab->{$modeloSegmentoPValidacao[$keyModeloP]}($valorP, $keyModeloP, $dadosSegmentoP, 'segmentoP');
+                        }
+
+                        $segmentoP[] = $valorP;
+                    }
+
+                    $contalinhas++;
+                    $quantTitulos++;
+                    $segmentoQ = [];
+
+                    foreach ($modeloSegmentoQ as $keyModeloQ => $especificacoesModeloQ) {
+
+                        $valorQ = $arquivoPadrao->tratarDados($especificacoesModeloQ, $this->segmentoQ[$loteNumero][$keySegmentoP][$keyModeloQ], $keyModeloQ, $config, 'segmentoQ');
+
+                        if (isset($modeloSegmentoQValidacao[$keyModeloQ])) {
+                            $validacaoCnab->{$modeloSegmentoQValidacao[$keyModeloQ]}($valorQ, $keyModeloQ, $this->segmentoQ[$loteNumero][$keySegmentoP], 'segmentoQ');
+                        }
+
+                        $segmentoQ[] = $valorQ;
+                    }
+
+                    $contalinhas++;
+                    if ($this->segmentoR[$loteNumero]) {
+
+                        $segmentoR = [];
+
+                        foreach ($modeloSegmentoR as $keyModeloR => $especificacoesModeloR) {
+
+                            $valorR = $arquivoPadrao->tratarDados($especificacoesModeloR, $this->segmentoR[$loteNumero][$keySegmentoP][$keyModeloR], $keyModeloR, $config, 'segmentoR');
+
+                            if (isset($modeloSegmentoRValidacao[$keyModeloR])) {
+                                $validacaoCnab->{$modeloSegmentoRValidacao[$keyModeloR]}($valorR, $keyModeloR, $this->segmentoR[$loteNumero][$keySegmentoP], 'segmentoR');
+                            }
+
+                            $segmentoR[] = $valorR;
+                        }
+
+                        $contalinhas++;
+                    }
+
+                    $this->linhas[] = $segmentoP;
+                    $this->linhas[] = $segmentoQ;
+
+                    if ($this->segmentoR[$loteNumero]) {
+                        $this->linhas[] = $segmentoR;
+                    }
+                }
             }
 
-            $traillerLote[] = $valor;
-        }
+            $modeloTraillerLote = $iLayout->traillerLote();
+            $modeloTraillerLoteDefault = $iLayout->traillerLoteDefault($headerArquivo);
+            $modeloTraillerLoteValidacao = $iLayout->traillerLoteValidacao();
+            $modeloTraillerLoteDinamico = $iLayout->traillerLoteDinamico($quantTitulos, $somaValor);
+            $traillerLote = [];
 
-        $validacaoCnab->validaSegmentosObrigatorios($this->traillerLote, 5, $segmentosObrigatorios);
-        $this->linhas[] = $traillerLote;
+            $this->traillerLote[$loteNumero] = $validacaoCnab->setDefault($modeloTraillerLote, $this->traillerLote[$loteNumero], $modeloTraillerLoteDefault, $modeloTraillerLoteDinamico, 'traillerLote');
+
+            foreach ($modeloTraillerLote as $key => $especificacoes) {
+
+                $valor = $arquivoPadrao->tratarDados($especificacoes, $this->traillerLote[$loteNumero][$key], $key, $config, 'traillerLote');
+
+                if (isset($modeloTraillerLoteValidacao[$key])) {
+                    $validacaoCnab->{$modeloTraillerLoteValidacao[$key]}($valor, $key, $this->traillerLote[$loteNumero], 'traillerLote');
+                }
+
+                $traillerLote[] = $valor;
+            }
+
+            $validacaoCnab->validaSegmentosObrigatorios($this->traillerLote[$loteNumero], 5, $segmentosObrigatorios);
+            $this->linhas[] = $traillerLote;
+        }//Fim forech trailler lote
+
 
         $modeloTraillerArquivo = $iLayout->traillerArquivo();
         $modeloTraillerArquivoDefault = $iLayout->traillerArquivoDefault($headerArquivo);
