@@ -209,7 +209,7 @@ class SicoobPagamentoTitulo
             14 => [40, 'texto'],
             15 => [1, 'num'],
             16 => [15, 'num'],
-            17 => [10, 'texto'],
+            17 => [40, 'texto'],
             18 => [53, 'texto'],
         ];
     }
