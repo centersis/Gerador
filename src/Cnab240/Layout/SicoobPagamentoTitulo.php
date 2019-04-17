@@ -263,7 +263,7 @@ class SicoobPagamentoTitulo
             9 => [30, 'texto'],
             10 => [8, 'data-dmY'],
             11 => [8, 'data-dmY'],
-            12 => [13, 'num'],
+            12 => [15, 'valor'],
             13 => [20, 'texto'],
             14 => [20, 'texto'],
             15 => [68, 'texto'],
@@ -274,11 +274,28 @@ class SicoobPagamentoTitulo
     public function segmentoODefault()
     {
         return [
-            1 => 746,
+            1 => 756,
+            2 => 1,
             3 => 3,
             5 => "O",
+            6 => 0,
+            7 => 0,
+            13 => '',
+            14 => '',
             15 => "",
             16 => "",
+        ];
+    }
+
+    public function segmentoOValidacao()
+    {
+        return [
+        ];
+    }
+
+    public function segmentoODinamico()
+    {
+        return [
         ];
     }
 
@@ -305,7 +322,7 @@ class SicoobPagamentoTitulo
     public function segmentoNDefault()
     {
         return [
-            1 => 746,
+            1 => 756,
             3 => 3,
             5 => "O",
             13 => "",

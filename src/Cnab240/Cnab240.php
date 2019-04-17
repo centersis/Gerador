@@ -12,6 +12,7 @@ class Cnab240
     private $headerLote;
     private $segmentoJ;
     private $segmentoJ52;
+    private $segmentoO;
     private $segmentoP;
     private $segmentoQ;
     private $segmentoR;
@@ -25,6 +26,7 @@ class Cnab240
         $this->headerLote = [];
         $this->segmentoJ = [];
         $this->segmentoJ52 = [];
+        $this->segmentoO = [];
         $this->segmentoP = [];
         $this->segmentoQ = [];
         $this->segmentoR = [];
@@ -51,6 +53,11 @@ class Cnab240
     function setSegmentoJ52($segmentoJ52)
     {
         $this->segmentoJ52[] = $segmentoJ52;
+    }
+
+    function setSegmentoO($segmentoO)
+    {
+        $this->segmentoO[] = $segmentoO;
     }
 
     function setSegmentoP($segmentoP)
@@ -177,6 +184,17 @@ class Cnab240
             $validacaoCnab->validaSegmentosObrigatorios($this->segmentoJ52, "J52", $segmentosObrigatorios);
             $this->segmentoJ52 = $validacaoCnab->setDefault($modeloSegmentoJ52, $this->segmentoJ52, $modeloSegmentoJ52Default, $modeloSegmentoJ52Dinamico, 'segmentoJ52');
 
+
+            if ($this->segmentoO) {
+                $modeloSegmentoO = $iLayout->segmentoO();
+                $modeloSegmentoODefault = $iLayout->segmentoODefault($headerArquivo);
+                $modeloSegmentoOValidacao = $iLayout->segmentoOValidacao();
+                $modeloSegmentoODinamico = $iLayout->segmentoODinamico();
+
+                $validacaoCnab->validaSegmentosObrigatorios($this->segmentoO, "O", $segmentosObrigatorios);
+                $this->segmentoO = $validacaoCnab->setDefault($modeloSegmentoO, $this->segmentoO, $modeloSegmentoODefault, $modeloSegmentoODinamico, 'segmentoO');
+            }
+
             foreach ($this->segmentoJ as $keySegmentoJ => $dadosSegmentoJ) {
 
                 $segmentoJ = [];
@@ -207,10 +225,32 @@ class Cnab240
                     $segmentoJ52[] = $valorJ52;
                 }
 
-                $contalinhas++;                
+                $contalinhas++;
+
+                if ($this->segmentoO) {
+
+                    $segmentoO = [];
+
+                    foreach ($modeloSegmentoO as $keyModeloO => $especificacoesModeloO) {
+
+                        $valorO = $arquivoPadrao->tratarDados($especificacoesModeloO, $this->segmentoO[$keySegmentoJ][$keyModeloO], $keyModeloO, $config, 'segmentoO');
+
+                        if (isset($modeloSegmentoOValidacao[$keyModeloO])) {
+                            $validacaoCnab->{$modeloSegmentoOValidacao[$keyModeloO]}($valorO, $keyModeloO, $this->segmentoO[$keySegmentoJ], 'segmentoO');
+                        }
+
+                        $segmentoO[] = $valorO;
+                    }
+
+                    $contalinhas++;
+                }
 
                 $this->linhas[] = $segmentoJ;
                 $this->linhas[] = $segmentoJ52;
+
+                if ($this->segmentoO) {
+                    $this->linhas[] = $segmentoO;
+                }
             }
         }
 
