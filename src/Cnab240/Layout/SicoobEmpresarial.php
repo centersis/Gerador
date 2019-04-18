@@ -2,7 +2,7 @@
 
 namespace Cnab240\Layout;
 
-class SicoobPagamentoTitulo
+class SicoobEmpresarial
 {
 
     public function headerArquivo()
@@ -70,7 +70,9 @@ class SicoobPagamentoTitulo
         ];
     }
 
-    public function headerLote()
+    ##--------------------------------------------------------------------------
+
+    public function headerLoteTitulo()
     {
         return [
             1 => [3, 'num'],
@@ -103,7 +105,7 @@ class SicoobPagamentoTitulo
         ];
     }
 
-    public function headerLoteDefault()
+    public function headerLoteTituloDefault()
     {
         return [
             1 => 756,
@@ -121,17 +123,86 @@ class SicoobPagamentoTitulo
         ];
     }
 
-    public function headerLoteValidacao()
+    public function headerLoteTituloValidacao()
     {
         return [
         ];
     }
 
-    public function headerLoteDinamico()
+    public function headerLoteTituloDinamico()
     {
         return [
         ];
     }
+
+    ##--------------------------------------------------------------------------
+
+    public function headerLoteConvenio()
+    {
+        return [
+            1 => [3, 'num'],
+            2 => [4, 'num'],
+            3 => [1, 'num'],
+            4 => [1, 'texto'],
+            5 => [2, 'num'],
+            6 => [2, 'num'],
+            7 => [3, 'num'],
+            8 => [1, 'texto'],
+            9 => [1, 'num'],
+            10 => [14, 'num'],
+            11 => [20, 'texto'],
+            12 => [5, 'num'],
+            13 => [1, 'texto'],
+            14 => [12, 'num'],
+            15 => [1, 'num'],
+            16 => [1, 'texto'],
+            17 => [30, 'texto'],
+            18 => [40, 'texto'],
+            19 => [30, 'texto'],
+            20 => [5, 'num'],
+            21 => [15, 'texto'],
+            22 => [20, 'texto'],
+            23 => [5, 'num'],
+            24 => [3, 'texto'],
+            25 => [2, 'texto'],
+            26 => [2, 'texto'],
+            27 => [6, 'texto'],
+            28 => [10, 'texto'],
+        ];
+    }
+
+    public function headerLoteConvenioDefault()
+    {
+        return [
+            1 => 756,
+            2 => 1,
+            3 => 1,
+            4 => "C",
+            5 => 1,
+            6 => "",
+            7 => "040",
+            8 => "",
+            16 => 0,
+            18 => "",
+            26 => 1,
+            27 => "",
+            27 => ""
+        ];
+    }
+
+    public function headerLoteConvenioValidacao()
+    {
+        return [
+        ];
+    }
+
+    public function headerLoteConvenioDinamico()
+    {
+        return [
+        ];
+    }
+
+    ##--------------------------------------------------------------------------
 
     public function segmentoJ()
     {
@@ -189,6 +260,8 @@ class SicoobPagamentoTitulo
         return [
         ];
     }
+
+    ##--------------------------------------------------------------------------
 
     public function segmentoJ52()
     {
@@ -249,6 +322,8 @@ class SicoobPagamentoTitulo
         ];
     }
 
+    ##--------------------------------------------------------------------------
+
     public function segmentoO()
     {
         return [
@@ -299,6 +374,8 @@ class SicoobPagamentoTitulo
         ];
     }
 
+    ##--------------------------------------------------------------------------
+
     public function segmentoN()
     {
         return [
@@ -330,7 +407,21 @@ class SicoobPagamentoTitulo
         ];
     }
 
-    public function traillerLote()
+    public function segmentoNValidacao()
+    {
+        return [
+        ];
+    }
+
+    public function segmentoNDinamico()
+    {
+        return [
+        ];
+    }
+
+    ##--------------------------------------------------------------------------
+
+    public function traillerLoteTitulo()
     {
         return [
             1 => [3, 'num'],
@@ -346,7 +437,7 @@ class SicoobPagamentoTitulo
         ];
     }
 
-    public function traillerLoteDefault()
+    public function traillerLoteTituloDefault()
     {
         return [
             1 => 756,
@@ -360,16 +451,57 @@ class SicoobPagamentoTitulo
         ];
     }
 
-    public function traillerLoteValidacao()
+    public function traillerLoteTituloValidacao()
     {
         return [];
     }
 
-    public function traillerLoteDinamico()
+    public function traillerLoteTituloDinamico()
     {
         return [
         ];
     }
+
+    ##--------------------------------------------------------------------------
+
+    public function traillerLoteConvenio()
+    {
+        return [
+            1 => [3, 'num'],
+            2 => [4, 'num'],
+            3 => [1, 'num'],
+            4 => [9, 'texto'],
+            5 => [6, 'num'],
+            6 => [18, 'valor'],
+            7 => [189, 'texto'],
+            8 => [10, 'texto'],
+        ];
+    }
+
+    public function traillerLoteConvenioDefault()
+    {
+        return [
+            1 => 756,
+            2 => 1,
+            3 => 5,
+            4 => "",
+            7 => '',
+            8 => ''
+        ];
+    }
+
+    public function traillerLoteConvenioValidacao()
+    {
+        return [];
+    }
+
+    public function traillerLoteConvenioDinamico()
+    {
+        return [
+        ];
+    }
+
+    ##--------------------------------------------------------------------------
 
     public function traillerArquivo()
     {
@@ -409,10 +541,11 @@ class SicoobPagamentoTitulo
         ];
     }
 
+    ##--------------------------------------------------------------------------
+
     public function segmentosObrigatorios()
     {
         return [
-            'J', 'J52'
         ];
     }
 
