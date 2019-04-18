@@ -154,7 +154,7 @@ class Cnab240Empresarial
 
                 foreach ($modeloHeaderLoteTitulo as $key => $especificacoes) {
 
-                    $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerLote[$loteNumero][$key], $key, $config, 'headerLoteTitulo');
+                    $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerLoteTitulo[$loteNumero][$key], $key, $config, 'headerLoteTitulo');
 
                     if (isset($modeloHeaderLoteTituloValidacao[$key])) {
                         $validacaoCnab->{$modeloHeaderLoteTituloValidacao[$key]}($valor, $key, $headerLoteTitulo, 'headerLoteTitulo');
@@ -253,7 +253,7 @@ class Cnab240Empresarial
 
                 foreach ($modeloHeaderLoteConvenio as $key => $especificacoes) {
 
-                    $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerLote[$loteNumero][$key], $key, $config, 'headerLoteConvenio');
+                    $valor = $arquivoPadrao->tratarDados($especificacoes, $this->headerLoteConvenio[$loteNumero][$key], $key, $config, 'headerLoteConvenio');
 
                     if (isset($modeloHeaderLoteConvenioValidacao[$key])) {
                         $validacaoCnab->{$modeloHeaderLoteConvenioValidacao[$key]}($valor, $key, $headerLoteConvenio, 'headerLoteConvenio');
