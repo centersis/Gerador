@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Cnab240;
+namespace Gerador\Src\Cnab240;
 
-use Src\Arquivo\ArquivoPadrao;
-use Src\Cnab240\ValidacaoCnab240;
-use Src\Base;
+use Gerador\Src\Arquivo\ArquivoPadrao;
+use Gerador\Src\Cnab240\ValidacaoCnab240;
+use Gerador\Src\Base;
 
 class Cnab240 extends Base
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Src;
+namespace Gerador\Src;
 
-use Src\Arquivo\ArquivoPadrao;
+use Gerador\Src\Arquivo\ArquivoPadrao;
 
 class Base {
 

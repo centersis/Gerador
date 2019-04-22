@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Agz\Layout;
+namespace Gerador\Src\Agz\Layout;
 
 class AgzAegea
 {

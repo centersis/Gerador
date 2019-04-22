@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Arquivo;
+namespace Gerador\Src\Arquivo;
 
-use Src\Arquivo\Util;
+use Gerador\Src\Arquivo\Util;
 
 class ArquivoPadrao
 {

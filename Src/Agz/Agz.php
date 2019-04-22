@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Agz;
+namespace Gerador\Src\Agz;
 
-use Src\Agz\ValidacaoAgz;
-use Src\Arquivo\ArquivoPadrao;
-use Src\Base;
+use Gerador\Src\Agz\ValidacaoAgz;
+use Gerador\Src\Arquivo\ArquivoPadrao;
+use Gerador\Src\Base;
 
 class Agz extends Base {
 
@@ -34,7 +34,7 @@ class Agz extends Base {
     }
 
     public function processar($layout, $config = []) {
-        $caminho = 'Src\\Agz\\Layout\\' . $layout;
+        $caminho = 'Gerador\\Src\\Agz\\Layout\\' . $layout;
 
         $iLayout = new $caminho;
         $validacaoAgz = new ValidacaoAgz();

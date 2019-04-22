@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Cnab400\Layout;
+namespace Gerador\Src\Cnab400\Layout;
 
 class Bradesco11
 {

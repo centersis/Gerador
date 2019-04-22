@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Cnab240\Layout;
+namespace Gerador\Src\Cnab240\Layout;
 
 class SicoobEmpresarial {
 

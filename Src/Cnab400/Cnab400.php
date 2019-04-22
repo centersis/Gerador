@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Cnab400;
+namespace Gerador\Src\Cnab400;
 
-use Src\Cnab400\ValidacaoCnab400;
-use Src\Arquivo\ArquivoPadrao;
-use Src\Base;
+use Gerador\Src\Cnab400\ValidacaoCnab400;
+use Gerador\Src\Arquivo\ArquivoPadrao;
+use Gerador\Src\Base;
 
 class Cnab400 extends Base {
 

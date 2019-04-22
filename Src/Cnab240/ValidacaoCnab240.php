@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Cnab240;
+namespace Gerador\Src\Cnab240;
 
-use Src\Arquivo\ArquivoValidacao;
+use Gerador\Src\Arquivo\ArquivoValidacao;
 
 class ValidacaoCnab240 extends ArquivoValidacao
 {

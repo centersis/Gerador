@@ -1,8 +1,8 @@
 <?php
 
-namespace Src\Agz;
+namespace Gerador\Src\Agz;
 
-use Src\Arquivo\ArquivoValidacao;
+use Gerador\Src\Arquivo\ArquivoValidacao;
 
 class ValidacaoAgz extends ArquivoValidacao
 {

@@ -2,12 +2,12 @@
 
 //Apenas um teste
 function my_autoloader($class) {
-    include __DIR__ . '/../../' . str_replace('\\', '/', $class) . '.php';
+    include __DIR__ . '/../../../' . str_replace('\\', '/', $class) . '.php';
 }
 
 spl_autoload_register('my_autoloader');
 
-use Src\Cnab240\Cnab240Empresarial;
+use Gerador\Src\Cnab240\Cnab240Empresarial;
 
 $instanciaCnab240Empresarial = new Cnab240Empresarial();
 $headerArquivo = [1 => 756,
