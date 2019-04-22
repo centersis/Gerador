@@ -67,7 +67,7 @@ class Cnab240 extends Base
 
     public function processar($layout, $config = [])
     {
-        $caminho = 'Src\\Cnab240\\Layout\\' . $layout;
+        $caminho = 'Gerador\\Src\\Cnab240\\Layout\\' . $layout;
 
         $iLayout = new $caminho;
         $arquivoPadrao = new ArquivoPadrao();

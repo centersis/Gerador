@@ -7,9 +7,8 @@ function my_autoloader($class) {
 
 spl_autoload_register('my_autoloader');
 
-use Gerador\Src\Cnab240\Cnab240Empresarial;
 
-$instanciaCnab240Empresarial = new Cnab240Empresarial();
+$instanciaCnab240Empresarial = new Gerador\Src\Cnab240\Cnab240Empresarial();
 $headerArquivo = [1 => 756,
     5 => 2,
     6 => 37455649000107,

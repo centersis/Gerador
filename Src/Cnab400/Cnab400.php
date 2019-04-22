@@ -70,7 +70,7 @@ class Cnab400 extends Base {
     }
 
     public function processar($layout, $config = []) {
-        $caminho = 'Src\\Cnab400\\Layout\\' . $layout;
+        $caminho = 'Gerador\\Src\\Cnab400\\Layout\\' . $layout;
         $iLayout = new $caminho;
         $arquivoPadrao = new ArquivoPadrao();
         $validacaoCnab = new ValidacaoCnab400();
