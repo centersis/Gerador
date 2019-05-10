@@ -2,7 +2,7 @@
 
 namespace Gerador\Src\Cnab240\Layout;
 
-class SicoobEmpresarial {
+class SafraEmpresarial {
 
     public function headerArquivo() {
         return [
@@ -14,9 +14,9 @@ class SicoobEmpresarial {
             6 => [14, 'num'],
             7 => [20, 'texto'],
             8 => [5, 'num'],
-            9 => [1, 'num'],
+            9 => [1, 'texto'],
             10 => [12, 'num'],
-            11 => [1, 'num'],
+            11 => [1, 'texto'],
             12 => [1, 'texto'],
             13 => [30, 'texto'],
             14 => [30, 'texto'],
@@ -35,16 +35,15 @@ class SicoobEmpresarial {
 
     public function headerArquivoDefault() {
         return [
-            1 => 756,
+            1 => 422,
             2 => 0,
             3 => 0,
             4 => "",
-            12 => 0,
             15 => "",
             16 => 1,
             17 => date('Y-m-d'),
             18 => date('h:i:s'),
-            20 => "087",
+            20 => "103",
             21 => 0,
             22 => "",
             23 => "",
@@ -78,7 +77,7 @@ class SicoobEmpresarial {
             12 => [5, 'num'],
             13 => [1, 'texto'],
             14 => [12, 'num'],
-            15 => [1, 'num'],
+            15 => [1, 'texto'],
             16 => [1, 'texto'],
             17 => [30, 'texto'],
             18 => [40, 'texto'],
@@ -96,14 +95,13 @@ class SicoobEmpresarial {
 
     public function headerLoteTituloDefault() {
         return [
-            1 => 756,            
+            1 => 422,
             3 => 1,
             4 => "C",
             5 => 1,
             6 => 31,
             7 => "040",
             8 => "",
-            16 => 0,
             18 => "",
             26 => "",
             27 => ""
@@ -152,12 +150,12 @@ class SicoobEmpresarial {
 
     public function headerLoteConvenioDefault() {
         return [
-            1 => 756,            
+            1 => 422,
             3 => 1,
             4 => "C",
             5 => 1,
             6 => 11,
-            7 => "040",
+            7 => 12,
             8 => "",
             16 => 0,
             18 => "",
@@ -202,7 +200,7 @@ class SicoobEmpresarial {
 
     public function segmentoJDefault() {
         return [
-            1 => 756,            
+            1 => 422,
             3 => 3,
             5 => "J",
             6 => 0,
@@ -248,7 +246,7 @@ class SicoobEmpresarial {
 
     public function segmentoJ52Default() {
         return [
-            1 => 756,            
+            1 => 422,
             3 => 3,
             5 => "J",
             6 => "",
@@ -297,7 +295,7 @@ class SicoobEmpresarial {
 
     public function segmentoODefault() {
         return [
-            1 => 756,            
+            1 => 422,
             3 => 3,
             5 => "O",
             6 => 0,
@@ -337,7 +335,7 @@ class SicoobEmpresarial {
 
     public function segmentoNDefault() {
         return [
-            1 => 756,
+            1 => 422,
             3 => 3,
             5 => "O",
             13 => "",
@@ -369,7 +367,7 @@ class SicoobEmpresarial {
 
     public function trailerLoteTituloDefault() {
         return [
-            1 => 756,            
+            1 => 422,
             3 => 5,
             4 => "",
             7 => 0,
@@ -400,7 +398,7 @@ class SicoobEmpresarial {
 
     public function trailerLoteConvenioDefault() {
         return [
-            1 => 756,
+            1 => 422,
             3 => 5,
             4 => "",
             7 => '',
@@ -429,7 +427,7 @@ class SicoobEmpresarial {
 
     public function trailerArquivoDefault() {
         return [
-            1 => 756,
+            1 => 422,
             2 => 9999,
             3 => 9,
             4 => "",
