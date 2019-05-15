@@ -2,9 +2,11 @@
 
 namespace Gerador\Src\Arquivo;
 
-class ArquivoValidacao {
+class ArquivoValidacao
+{
 
-    public function validaCpf($cpf, $posicao, $linha, $identifica) {
+    public function validaCpf($cpf, $posicao, $linha, $identifica)
+    {
 
         $invalidos = [];
 
@@ -67,7 +69,8 @@ class ArquivoValidacao {
         return true;
     }
 
-    public function validaCnpj($cnpj, $posicao, $linha, $identifica) {
+    public function validaCnpj($cnpj, $posicao, $linha, $identifica)
+    {
         $j = 0;
         $num = [];
         for ($i = 0; $i < (\strlen($cnpj)); $i++) {
@@ -134,35 +137,40 @@ class ArquivoValidacao {
         return true;
     }
 
-    public function validaIdTitulo($opcao, $posicao, $linha, $identifica) {
+    public function validaIdTitulo($opcao, $posicao, $linha, $identifica)
+    {
         $opcoes = ["A", "N"];
         if (array_search($opcao, $opcoes) === false) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
     }
 
-    public function validaTamanho($string, $tamanho, $posicao, $identifica) {
+    public function validaTamanho($string, $tamanho, $posicao, $identifica)
+    {
         $stringLimpa = trim($string);
         if (strlen($stringLimpa) != $tamanho) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
     }
 
-    public function validaCep($cep, $posicao, $linha, $identifica) {
+    public function validaCep($cep, $posicao, $linha, $identifica)
+    {
         $this->validaTamanho($cep, 5, $posicao, $identifica);
         if (preg_match('/[0-9]{5,5}?$/', $cep) === FALSE) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
     }
 
-    public function validaSufixoCep($sufixo, $posicao, $linha, $identifica) {
+    public function validaSufixoCep($sufixo, $posicao, $linha, $identifica)
+    {
         $this->validaTamanho($sufixo, 3, $posicao, $identifica);
         if (preg_match('/[0-9]{3}?$/', $sufixo) === FALSE) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
     }
 
-    public function validaUf($opcao, $posicao, $linha, $identifica) {
+    public function validaUf($opcao, $posicao, $linha, $identifica)
+    {
         $opcoes = ["AC", "AL", "AM", "AP",
             "BA", "CE", "DF", "ES",
             "GO", "MA", "MG", "MS",
@@ -175,7 +183,8 @@ class ArquivoValidacao {
         }
     }
 
-    public function validaOpcao1e2($opcao, $posicao, $linha, $identifica) {
+    public function validaOpcao1e2($opcao, $posicao, $linha, $identifica)
+    {
         $opcoes = [1, 2];
 
         if (array_search($opcao, $opcoes) === false) {
@@ -183,20 +192,23 @@ class ArquivoValidacao {
         }
     }
 
-    public function validaCodigo($opcao, $posicao, $linha, $identifica) {
+    public function validaCodigo($opcao, $posicao, $linha, $identifica)
+    {
         $opcoes = [0, 1, 2];
         if (array_search($opcao, $opcoes) === false) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
     }
 
-    public function validaTamanhoNum($valor, $tamanho, $posicao, $identifica) {
+    public function validaTamanhoNum($valor, $tamanho, $posicao, $identifica)
+    {
         if (strlen($valor) > $tamanho) {
             throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
         }
     }
 
-    public function setDefault($modelo, $setados, $default, $identifica) {
+    public function setDefault($modelo, $setados, $default, $identifica)
+    {
         if (isset($setados[0]) and is_array($setados[0])) {
 
             foreach ($setados as $chavePosicao => $dadosPosicao) {
@@ -252,7 +264,8 @@ class ArquivoValidacao {
         return $setados;
     }
 
-    public function validaData($data, $posicao, $linha, $identifica) {
+    public function validaData($data, $posicao, $linha, $identifica)
+    {
         $y = substr($data, 0, 4);
         $m = substr($data, 4, 2);
         $d = substr($data, 6, 2);
@@ -261,12 +274,15 @@ class ArquivoValidacao {
             throw new \Exception($identifica . " - Posição " . $posicao . " não possui uma data válida!");
         }
 
-        if (!checkdate((int) $m, (int) $d, (int) $y)) {
+        $anoMesDia = $y . $m . $d;
+
+        if ($anoMesDia <> '00000000' and ! checkdate((int) $m, (int) $d, (int) $y)) {
             throw new \Exception($identifica . " - Posição " . $posicao . " não possui uma data válida!");
         }
     }
 
-    public function validaHora($hora, $posicao, $linha, $identifica) {
+    public function validaHora($hora, $posicao, $linha, $identifica)
+    {
         $h = substr($hora, 0, 2);
         $m = substr($hora, 2, 2);
         $s = substr($hora, 4, 2);
