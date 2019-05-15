@@ -2,9 +2,11 @@
 
 namespace Gerador\Src\Cnab240\Layout;
 
-class SafraEmpresarial {
+class SafraEmpresarial
+{
 
-    public function headerArquivo() {
+    public function headerArquivo()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -33,7 +35,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function headerArquivoDefault() {
+    public function headerArquivoDefault()
+    {
         return [
             1 => 422,
             2 => 0,
@@ -51,7 +54,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function headerArquivoValidacao() {
+    public function headerArquivoValidacao()
+    {
         return [
             5 => "validaOpcao1e2",
             6 => "validaCpfeCnpj",
@@ -61,7 +65,8 @@ class SafraEmpresarial {
 
     ##--------------------------------------------------------------------------
 
-    public function headerLoteTitulo() {
+    public function headerLoteTitulo()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -93,7 +98,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function headerLoteTituloDefault() {
+    public function headerLoteTituloDefault()
+    {
         return [
             1 => 422,
             3 => 1,
@@ -107,14 +113,16 @@ class SafraEmpresarial {
         ];
     }
 
-    public function headerLoteTituloValidacao() {
+    public function headerLoteTituloValidacao()
+    {
         return [
         ];
     }
 
     ##--------------------------------------------------------------------------
 
-    public function headerLoteConvenio() {
+    public function headerLoteConvenio()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -147,7 +155,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function headerLoteConvenioDefault() {
+    public function headerLoteConvenioDefault()
+    {
         return [
             1 => 422,
             3 => 1,
@@ -163,14 +172,16 @@ class SafraEmpresarial {
         ];
     }
 
-    public function headerLoteConvenioValidacao() {
+    public function headerLoteConvenioValidacao()
+    {
         return [
         ];
     }
 
     ##--------------------------------------------------------------------------
 
-    public function segmentoJ() {
+    public function segmentoJ()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -196,13 +207,15 @@ class SafraEmpresarial {
         ];
     }
 
-    public function segmentoJDefault() {
+    public function segmentoJDefault()
+    {
         return [
             1 => 422,
             3 => 3,
             5 => "J",
             6 => 0,
             7 => 0,
+            9 => '',
             16 => 0,
             18 => '',
             19 => 9,
@@ -211,14 +224,16 @@ class SafraEmpresarial {
         ];
     }
 
-    public function segmentoJValidacao() {
+    public function segmentoJValidacao()
+    {
         return [
         ];
     }
 
     ##--------------------------------------------------------------------------
 
-    public function segmentoJ52() {
+    public function segmentoJ52()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -241,7 +256,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function segmentoJ52Default() {
+    public function segmentoJ52Default()
+    {
         return [
             1 => 422,
             3 => 3,
@@ -260,14 +276,16 @@ class SafraEmpresarial {
         ];
     }
 
-    public function segmentoJ52Validacao() {
+    public function segmentoJ52Validacao()
+    {
         return [
         ];
     }
 
     ##--------------------------------------------------------------------------
 
-    public function segmentoO() {
+    public function segmentoO()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -288,7 +306,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function segmentoODefault() {
+    public function segmentoODefault()
+    {
         return [
             1 => 422,
             3 => 3,
@@ -302,14 +321,16 @@ class SafraEmpresarial {
         ];
     }
 
-    public function segmentoOValidacao() {
+    public function segmentoOValidacao()
+    {
         return [
         ];
     }
 
     ##--------------------------------------------------------------------------
 
-    public function segmentoN() {
+    public function segmentoN()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -328,7 +349,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function segmentoNDefault() {
+    public function segmentoNDefault()
+    {
         return [
             1 => 422,
             3 => 3,
@@ -338,14 +360,16 @@ class SafraEmpresarial {
         ];
     }
 
-    public function segmentoNValidacao() {
+    public function segmentoNValidacao()
+    {
         return [
         ];
     }
 
     ##--------------------------------------------------------------------------
 
-    public function trailerLoteTitulo() {
+    public function trailerLoteTitulo()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -360,7 +384,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function trailerLoteTituloDefault() {
+    public function trailerLoteTituloDefault()
+    {
         return [
             1 => 422,
             3 => 5,
@@ -372,13 +397,15 @@ class SafraEmpresarial {
         ];
     }
 
-    public function trailerLoteTituloValidacao() {
+    public function trailerLoteTituloValidacao()
+    {
         return [];
     }
 
     ##--------------------------------------------------------------------------
 
-    public function trailerLoteConvenio() {
+    public function trailerLoteConvenio()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -391,7 +418,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function trailerLoteConvenioDefault() {
+    public function trailerLoteConvenioDefault()
+    {
         return [
             1 => 422,
             3 => 5,
@@ -401,13 +429,15 @@ class SafraEmpresarial {
         ];
     }
 
-    public function trailerLoteConvenioValidacao() {
+    public function trailerLoteConvenioValidacao()
+    {
         return [];
     }
 
     ##--------------------------------------------------------------------------
 
-    public function trailerArquivo() {
+    public function trailerArquivo()
+    {
         return [
             1 => [3, 'num'],
             2 => [4, 'num'],
@@ -420,7 +450,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function trailerArquivoDefault() {
+    public function trailerArquivoDefault()
+    {
         return [
             1 => 422,
             2 => 9999,
@@ -432,7 +463,8 @@ class SafraEmpresarial {
         ];
     }
 
-    public function trailerArquivoValidacao() {
+    public function trailerArquivoValidacao()
+    {
         return [];
     }
 
