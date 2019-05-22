@@ -67,10 +67,7 @@ class AgzCta
 
     public function segmentoGValidacao()
     {
-        return [
-            10 => "validaFormaArrecadacao",
-            12 => "validaFormaPagamento"
-        ];
+        return [];
     }
 
     public function segmentoZ()
