@@ -12,15 +12,9 @@ class Util
 
     public function trataValor($valor)
     {
-        $ponto = strpos($valor, '.');
-        $virgula = strpos($valor, ',');
+        $valorCliente = $this->floatCliente($valor);
 
-
-        if ($ponto or $virgula) {
-            $valor = $this->floatCliente($valor);
-        }
-
-        return $this->somenteNumeros($valor);
+        return $this->somenteNumeros($valorCliente);
     }
 
     public function toFloat($valor)
@@ -123,4 +117,5 @@ class Util
             return substr($str, 0, $tamanho);
         }
     }
+
 }
