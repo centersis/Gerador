@@ -75,7 +75,7 @@ class AgzCta
         return [
             1 => [1, 'texto'],
             2 => [6, 'num'],
-            3 => [17, 'num'],
+            3 => [17, 'valor'],
             4 => [126, 'texto'],
         ];
     }
