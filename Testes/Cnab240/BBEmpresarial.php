@@ -1,7 +1,8 @@
 <?php
 
 //Apenas um teste
-function my_autoloader($class) {
+function my_autoloader($class)
+{
     include __DIR__ . '/../../../' . str_replace('\\', '/', $class) . '.php';
 }
 
@@ -9,38 +10,38 @@ spl_autoload_register('my_autoloader');
 
 
 $instanciaCnab240Empresarial = new Gerador\Src\Cnab240\Cnab240Empresarial();
-$headerArquivo = [1 => 756,
+$headerArquivo = [1 => 1,
     5 => 2,
     6 => 37455649000107,
-    7=>'teste',
+    7 => 'teste',
     8 => 4425,
     9 => 0,
     10 => 2758,
     11 => "8",
     12 => "",
     13 => "Centersis Tecnologia da Informação LTDA - ME",
-    14 => "Sicoob",
     19 => 49,
 ];
 $instanciaCnab240Empresarial->setHeaderArquivo($headerArquivo);
 
 $headerLoteTitulo = [
     2 => 1,
-    9=>0,
+    6 => 31,
+    9 => 0,
     10 => 37455649000107,
-    11=>0,
+    11 => 0,
     12 => 4425, //Prefixo da cooperativa - Agencia
     13 => 3, //Dígito verificador da agencia
     14 => 2758, //Número da Conta Corrente
     15 => 8, //Dígito da conta corrente
     17 => 'Centersis', //Nome da Empresa
-    19=>0,
+    19 => 0,
     20 => 1, //Número da remessa
-    21=>0,
-    22=>0,
-    23=>0,
-    24=>0,
-    25=>0,
+    21 => 0,
+    22 => 0,
+    23 => 0,
+    24 => 0,
+    25 => 0,
 ];
 
 $instanciaCnab240Empresarial->setHeaderLoteTitulo($headerLoteTitulo, 1);
@@ -53,10 +54,10 @@ $segmentoJ = [
     9 => 9,
     10 => 20150506,
     11 => 11,
-    12=>0,
+    12 => 0,
     13 => "000002132001014",
     14 => 20150506,
-    15=>0,
+    15 => 0,
     17 => 2,
     18 => 2,
     19 => 0,
@@ -97,13 +98,13 @@ $instanciaCnab240Empresarial->setSegmentoJ52($segmentoJ52, 1);
 
 $trailerLoteTitulo = [
     2 => 1,
-    6=>0,
+    6 => 0,
     5 => 5,
 ];
-$instanciaCnab240Empresarial->setTrailerLoteTitulo($trailerLoteTitulo,1);
+$instanciaCnab240Empresarial->setTrailerLoteTitulo($trailerLoteTitulo, 1);
 
 $trailerArquivo = [
-    6=>0,
+    6 => 0,
 ];
 $instanciaCnab240Empresarial->setTrailerArquivo($trailerArquivo);
 
@@ -111,7 +112,7 @@ $instanciaCnab240Empresarial->setTrailerArquivo($trailerArquivo);
 try {
 
 
-    $instanciaCnab240Empresarial->gerar('SicoobEmpresarial', '../../Storage', 'sicoobCnab240Empresarial.txt', [
+    $instanciaCnab240Empresarial->gerar('BBEmpresarial', '../../Storage', 'bbCnab240Empresarial.txt', [
         'case' => 'upper',
         'obrigatorio' => ['headerArquivo', 'headerLoteTitulo', 'segmentoJ', 'segmentoJ52', 'trailerLoteTitulo', 'trailerArquivo']
     ]);
