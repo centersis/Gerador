@@ -23,7 +23,7 @@ class ValidacaoCnab400 extends ArquivoValidacao
 
         throw new \Exception($identifica . " - Posição " . $posicao . " inválida");
     }
-    
+
     public function validaData($data, $posicao, $linha, $identifica)
     {
         $pontos = ["\\", "/", "-", "."];
@@ -50,12 +50,11 @@ class ValidacaoCnab400 extends ArquivoValidacao
         foreach ($array as $keySegmento => $segmento) {
             $contagem = 0;
             foreach ($segmento as $key => $valor) {
-                $quant = 0;
                 $quant = strlen($valor);
                 $contagem = $contagem + $quant;
             }
             if (($contagem == 400) === false) {
-                throw new \Exception("O Array $keySegmento não possui 400 caracteres");
+                throw new \Exception("O Array $keySegmento não possui 400 caracteres. Atualmente: ".$contagem);
             }
         }
     }
