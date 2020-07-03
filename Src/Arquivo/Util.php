@@ -70,6 +70,8 @@ class Util
 
     private function removeAcentos($string)
     {
+        $string = str_replace(['ª','º'], '.', $string);
+        
         return preg_replace(
             [
             '/\xc3[\x80-\x85]/',
