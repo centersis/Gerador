@@ -55,7 +55,7 @@ class Util
             throw new \Exception("Texto não deve ser um array!");
         }
 
-        $retorno = $this->removeAcentos(trim(html_entity_decode($texto)));
+        $retorno = $this->removeAcentos(rtrim(html_entity_decode($texto)));
 
         if ($case == 'upper') {
             return strtoupper($retorno);
