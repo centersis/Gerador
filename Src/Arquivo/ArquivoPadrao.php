@@ -59,6 +59,10 @@ class ArquivoPadrao
         $arquivoValidacao = new ArquivoValidacao();
 
 
+        if ($especificacoes[1] == 'livre') {
+            return $valor;
+        }
+
         switch ($especificacoes[1]) {
 
             case 'doc':
