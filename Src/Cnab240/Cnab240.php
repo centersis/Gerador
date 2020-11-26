@@ -199,11 +199,10 @@ class Cnab240 extends Base
 
             $modeloTrailerLote = $iLayout->trailerLote();
             $modeloTrailerLoteDefault = $iLayout->trailerLoteDefault($headerArquivo);
-            $modeloTrailerLoteValidacao = $iLayout->trailerLoteValidacao();
-            $modeloTrailerLoteDinamico = $iLayout->trailerLoteDinamico($quantTitulos, $somaValor);
+            $modeloTrailerLoteValidacao = $iLayout->trailerLoteValidacao();            
             $trailerLote = [];
 
-            $this->trailerLote[$loteNumero] = $validacaoCnab->setDefault($modeloTrailerLote, $this->trailerLote[$loteNumero], $modeloTrailerLoteDefault, $modeloTrailerLoteDinamico, 'trailerLote');
+            $this->trailerLote[$loteNumero] = $validacaoCnab->setDefault($modeloTrailerLote, $this->trailerLote[$loteNumero], $modeloTrailerLoteDefault, 'trailerLote');
 
             foreach ($modeloTrailerLote as $key => $especificacoes) {
 
@@ -223,11 +222,10 @@ class Cnab240 extends Base
 
         $modeloTrailerArquivo = $iLayout->trailerArquivo();
         $modeloTrailerArquivoDefault = $iLayout->trailerArquivoDefault($headerArquivo);
-        $modeloTrailerArquivoValidacao = $iLayout->trailerArquivoValidacao();
-        $modeloTrailerArquivoDinamico = $iLayout->trailerArquivoDinamico(0);
+        $modeloTrailerArquivoValidacao = $iLayout->trailerArquivoValidacao();        
         $trailerArquivo = [];
 
-        $this->trailerArquivo = $validacaoCnab->setDefault($modeloTrailerArquivo, $this->trailerArquivo, $modeloTrailerArquivoDefault, $modeloTrailerArquivoDinamico, 'trailerArquivo');
+        $this->trailerArquivo = $validacaoCnab->setDefault($modeloTrailerArquivo, $this->trailerArquivo, $modeloTrailerArquivoDefault, 'trailerArquivo');
 
         foreach ($modeloTrailerArquivo as $key => $especificacoes) {
 

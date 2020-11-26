@@ -120,11 +120,6 @@ class Unicred
         return [];
     }
 
-    public function headerLoteDinamico()
-    {
-        return [];
-    }
-
     public function segmentoP()
     {
         return [
@@ -224,11 +219,6 @@ class Unicred
               36 => "validaCodigoProteMovi",
               40 => "codigoMoeda", */
         ];
-    }
-
-    public function segmentoPDinamico()
-    {
-        return [];
     }
 
     public function segmentoQ()
@@ -348,11 +338,6 @@ class Unicred
               //15 => "validaJuroseDescData",
               16 => "validaJurosDescValor", */
         ];
-    }
-
-    public function segmentoRDinamico()
-    {
-        return [];
     }
 
     public function trailerLote()
