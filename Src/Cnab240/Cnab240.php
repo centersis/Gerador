@@ -146,8 +146,7 @@ class Cnab240 extends Base
                 $somaValor = 0;
                 foreach ($this->segmentoP[$loteNumero] as $keySegmentoP => $dadosSegmentoP) {
 
-                    $segmentoP = [];
-                    $somaValor += $dadosSegmentoP[21];
+                    $segmentoP = [];                    
 
                     foreach ($modeloSegmentoP as $keyModeloP => $especificacoesModeloP) {
 
