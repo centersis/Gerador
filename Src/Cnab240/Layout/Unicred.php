@@ -93,10 +93,10 @@ class Unicred
         ];
     }
 
-    public function headerLoteDefault($headerArquivo)
+    public function headerLoteDefault()
     {
         return [
-            1 => $headerArquivo[1],
+            1 => 136,
             2 => 1,
             3 => 1,
             4 => "R",
@@ -104,13 +104,8 @@ class Unicred
             6 => "",
             7 => "044",
             8 => "",
-            9 => $headerArquivo[5],
-            10 => $headerArquivo[6],
+            9 => 2,
             11 => "",
-            12 => $headerArquivo[8],
-            13 => $headerArquivo[9],
-            14 => $headerArquivo[10],
-            15 => $headerArquivo[11],
             16 => "",
             17 => 0,
             18 => date('dmY'),
