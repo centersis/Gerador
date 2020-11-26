@@ -76,8 +76,6 @@ class Cnab240 extends Base
         $this->linhas = [];
         $headerArquivo = [];
 
-
-        $segmentosObrigatorios = $iLayout->segmentosObrigatorios();
         $modeloHeaderArqDefault = $iLayout->headerArquivoDefault();
         $modeloHeaderArqValidacao = $iLayout->headerArquivoValidacao();
         $modeloHeaderArquivo = $iLayout->headerArquivo();
@@ -143,7 +141,6 @@ class Cnab240 extends Base
                     $this->segmentoR[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoR, $this->segmentoR[$loteNumero], $modeloSegmentoRDefault, 'segmentoR');
                 }
 
-                $somaValor = 0;
                 foreach ($this->segmentoP[$loteNumero] as $keySegmentoP => $dadosSegmentoP) {
 
                     $segmentoP = [];                    
@@ -215,7 +212,6 @@ class Cnab240 extends Base
                 $trailerLote[] = $valor;
             }
 
-            $validacaoCnab->validaSegmentosObrigatorios($this->trailerLote[$loteNumero], 5, $segmentosObrigatorios);
             $this->linhas[] = $trailerLote;
         }//Fim forech trailer lote
 

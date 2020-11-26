@@ -414,11 +414,5 @@ class Unicred
     public function trailerArquivoValidacao()
     {
         return [];
-    }
-    
-    public function segmentosObrigatorios()
-    {
-        return [];
-    }
-
+    }    
 }
