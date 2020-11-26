@@ -114,6 +114,11 @@ class Unicred
             21 => ""
         ];
     }
+    
+    public function headerLoteValidacao()
+    {
+        return [];
+    }
 
     public function headerLoteDinamico()
     {
