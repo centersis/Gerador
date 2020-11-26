@@ -46,7 +46,7 @@ class Unicred
             12 => "UNICRED DO BRASIL",
             13 => "",
             14 => 1,
-            15 => date('d-m-Y'),
+            15 => date('Y-m-d'),
             16 => date('h:i:s'),
             18 => "085",
             19 => 0,
