@@ -159,8 +159,6 @@ class Cnab240 extends Base
                         $segmentoP[] = $valorP;
                     }
 
-                    $contalinhas++;
-                    $quantTitulos++;
                     $segmentoQ = [];
 
                     foreach ($modeloSegmentoQ as $keyModeloQ => $especificacoesModeloQ) {
@@ -174,7 +172,6 @@ class Cnab240 extends Base
                         $segmentoQ[] = $valorQ;
                     }
 
-                    $contalinhas++;
                     if (isset($this->segmentoR[$loteNumero])) {
 
                         $segmentoR = [];
@@ -189,8 +186,6 @@ class Cnab240 extends Base
 
                             $segmentoR[] = $valorR;
                         }
-
-                        $contalinhas++;
                     }
 
                     $this->linhas[] = $segmentoP;
@@ -229,7 +224,7 @@ class Cnab240 extends Base
         $modeloTrailerArquivo = $iLayout->trailerArquivo();
         $modeloTrailerArquivoDefault = $iLayout->trailerArquivoDefault($headerArquivo);
         $modeloTrailerArquivoValidacao = $iLayout->trailerArquivoValidacao();
-        $modeloTrailerArquivoDinamico = $iLayout->trailerArquivoDinamico($contalinhas);
+        $modeloTrailerArquivoDinamico = $iLayout->trailerArquivoDinamico(0);
         $trailerArquivo = [];
 
         $this->trailerArquivo = $validacaoCnab->setDefault($modeloTrailerArquivo, $this->trailerArquivo, $modeloTrailerArquivoDefault, $modeloTrailerArquivoDinamico, 'trailerArquivo');
