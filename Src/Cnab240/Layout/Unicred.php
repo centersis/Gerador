@@ -430,5 +430,10 @@ class Unicred
     {
         return [];
     }
+    
+    public function segmentosObrigatorios()
+    {
+        return [];
+    }
 
 }
