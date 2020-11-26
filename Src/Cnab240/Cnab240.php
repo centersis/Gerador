@@ -20,7 +20,7 @@ class Cnab240 extends Base
     function __construct()
     {
         parent::__construct();
-        
+
         $this->headerArquivo = [];
         $this->headerLote = [];
         $this->segmentoP = [];
@@ -38,7 +38,7 @@ class Cnab240 extends Base
     function setHeaderLote($headerLote, $lote)
     {
         $this->headerLote[$lote] = $headerLote;
-    }   
+    }
 
     function setSegmentoP($segmentoP, $lote)
     {
@@ -81,7 +81,7 @@ class Cnab240 extends Base
         $modeloHeaderArqDefault = $iLayout->headerArquivoDefault();
         $modeloHeaderArqValidacao = $iLayout->headerArquivoValidacao();
         $modeloHeaderArquivo = $iLayout->headerArquivo();
-        
+
         $this->headerArquivo = $validacaoCnab->setDefault($modeloHeaderArquivo, $this->headerArquivo, $modeloHeaderArqDefault, 'headerArquivo');
 
         foreach ($modeloHeaderArquivo as $key => $especificacoes) {
@@ -104,7 +104,7 @@ class Cnab240 extends Base
         foreach (array_keys($this->headerLote) as $loteNumero) {
 
             $headerLote = [];
-       
+
             $this->headerLote[$loteNumero] = $validacaoCnab->setDefault($modeloHeaderLote, $this->headerLote[$loteNumero], $modeloHeaderLoteDefault, 'headerLote');
 
             foreach ($modeloHeaderLote as $key => $especificacoes) {
@@ -119,19 +119,19 @@ class Cnab240 extends Base
             }
 
             $this->linhas[] = $headerLote;
-            
+
             #Remessa
             if (isset($this->segmentoP[$loteNumero])) {
                 $modeloSegmentoP = $iLayout->segmentoP();
                 $modeloSegmentoPDefault = $iLayout->segmentoPDefault($headerArquivo);
                 $modeloSegmentoPValidacao = $iLayout->segmentoPValidacao();
-               
+
                 $this->segmentoP[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoP, $this->segmentoP[$loteNumero], $modeloSegmentoPDefault, 'segmentoP');
 
                 $modeloSegmentoQ = $iLayout->segmentoQ();
                 $modeloSegmentoQDefault = $iLayout->segmentoQDefault($headerArquivo);
                 $modeloSegmentoQValidacao = $iLayout->segmentoQValidacao();
-              
+
 
                 $this->segmentoQ[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoQ, $this->segmentoQ[$loteNumero], $modeloSegmentoQDefault, 'segmentoQ');
 
@@ -139,10 +139,11 @@ class Cnab240 extends Base
                     $modeloSegmentoR = $iLayout->segmentoR();
                     $modeloSegmentoRDefault = $iLayout->segmentoRDefault($headerArquivo);
                     $modeloSegmentoRValidacao = $iLayout->segmentoRValidacao();
-                 
+
                     $this->segmentoR[$loteNumero] = $validacaoCnab->setDefault($modeloSegmentoR, $this->segmentoR[$loteNumero], $modeloSegmentoRDefault, 'segmentoR');
                 }
 
+                $somaValor = 0;
                 foreach ($this->segmentoP[$loteNumero] as $keySegmentoP => $dadosSegmentoP) {
 
                     $segmentoP = [];
