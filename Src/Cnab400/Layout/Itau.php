@@ -32,13 +32,13 @@ class Itau
         return [
             1 => 0,
             2 => 1,
+            3 => 'REMESSA',
             4 => 01,
-            6 => 0,
-            7 => 00,
-            8 => 0,
-            9 => 0,
+            5 => 'COBRANCA',
+            7 => 0,
             10 => "",
-            11 => "",
+            12 => 341,
+            13 => 'BANCO ITAU SA',
             14 => date('Y-m-d'),
             15 => "",
         ];
@@ -47,7 +47,6 @@ class Itau
     public function headerArquivoValidacao()
     {
         return [
-            
         ];
     }
 
@@ -71,8 +70,8 @@ class Itau
             15 => [1, 'texto'],
             16 => [2, 'num'],
             17 => [10, 'texto'],
-            18 => [6, 'num'],
-            19 => [13, 'num'],
+            18 => [6, 'data-dmy'],
+            19 => [13, 'valor'],
             20 => [3, 'num'],
             21 => [5, 'num'],
             22 => [2, 'texto'],
@@ -80,11 +79,11 @@ class Itau
             24 => [6, 'data-dmy'],
             25 => [2, 'texto'],
             26 => [2, 'texto'],
-            27 => [13, 'num'],
-            28 => [6, 'num'],
-            29 => [13, 'num'],
-            30 => [13, 'num'],
-            31 => [13, 'num'],
+            27 => [13, 'valor'],
+            28 => [6, 'data-dmy'],
+            29 => [13, 'valor'],
+            30 => [13, 'valor'],
+            31 => [13, 'valor'],
             32 => [2, 'num'],
             33 => [14, 'num'],
             34 => [30, 'texto'],
@@ -107,23 +106,29 @@ class Itau
     {
         return [
             1 => 1,
-            6 => 0,
-            7 => 0,
+            5 => 0,
             8 => "",
-            10 => "",
-            11 => 0,
+            9 => 0,
             12 => 0,
             14 => "",
+            15 => 'I',
+            16 => 1,
             20 => 341,
             21 => 0,
+            22 => 99,
+            23 => 'N',
             24 => date('Y-m-d'),
+            25 => '00',
+            26 => '00',
             27 => 0,
+            28 => 0,
             29 => 0,
             30 => 0,
             31 => 0,
             35 => "",
             42 => "",
-            43 => date('Y-m-d'),
+            43 => 0,
+            44 => 0,
             45 => ""
         ];
     }
@@ -131,23 +136,6 @@ class Itau
     public function tipoUmValidacao()
     {
         return [
-            
-//            2 => "validaTipoInscricao",
-//            3 => "validaCpfeCnpj",
-//            9 => "validaCodInstrucao",
-//            15 => "validaCodCarteira",
-//            16 => "validaIdenOcorrencia",
-//            18 => "validaData",
-//            19 => "validaZerado",
-//            22 => "validaEspTitulo",
-//            23 => "validaIdTitulo",
-//            24 => "validaData",
-//            25 => "validaInstCobranca",
-//            26 => "validaInstCobranca",
-//            32 => "validaOpcao1e2",
-//            33 => "validaCpfeCnpj",
-//            38 => "validaCepInteiro",
-//            40 => "validaUf",
         ];
     }
 
@@ -335,11 +323,11 @@ class Itau
 
     public function trailerArquivo()
     {
-//        return [
-//            1 => [1, 'num'],
-//            2 => [393, 'texto'],
-//            3 => [6, 'num'],
-//        ];
+        return [
+            1 => [1, 'num'],
+            2 => [393, 'texto'],
+            3 => [6, 'num'],
+        ];
     }
 
     public function trailerArquivoDefault()
@@ -354,4 +342,5 @@ class Itau
     {
         return [];
     }
+
 }
